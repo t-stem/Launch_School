@@ -15,5 +15,8 @@ const contains = function(city, destinations) {
 }
 
 
-console.log(contains('Barcelona', destinations)); // true
-console.log(contains('Nashville', destinations)); // false
+// feedback: more concise alternative
+const contains2 = (city, destinations) => destinations.indexOf(city) !== -1; 
+
+console.log(contains2('Barcelona', destinations)); // true
+console.log(contains2('Nashville', destinations)); // false
