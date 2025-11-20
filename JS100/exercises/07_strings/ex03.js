@@ -8,7 +8,7 @@ let repeat = (reps, text) => {
     for (let counter = 0; counter < reps; counter += 1) {
         repString = repString + text;
     }
-    console.log(repString);
+    return repString;
 }
 
 repeat(3, 'ha'); // 'hahaha'
