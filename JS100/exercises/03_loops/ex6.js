@@ -5,7 +5,7 @@ skip forward to the next iteration without logging anything to the console. */
 
 let cities = ['Istanbul', 'Los Angeles', 'Tokyo', null, 'Vienna', null, 'London', 'Beijing', null];
 
-for (i = 0; i < cities.length; i +=1) {
+for (let i = 0; i < cities.length; i +=1) { // declare i using let (otherwise it's a global variable which can cause issues)
     if (cities[i] === null) {
         continue;
     }
