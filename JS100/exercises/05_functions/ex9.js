@@ -12,7 +12,8 @@ function extractLanguage(locale) {
     if (typeof locale !== 'string') {
         return 'Please enter a string';
     }
-    return locale.slice(0,2);
+
+    return locale.slice(0,locale.indexOf('_')); // improvement: spit string at the '_' char
 }
 
 console.log(extractLanguage('en_US.UTF-8'));
