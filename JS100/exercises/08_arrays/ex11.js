@@ -9,10 +9,9 @@ let groceryList = ['paprika', 'tofu', 'garlic', 'quinoa', 'carrots', 'broccoli',
 
 function checkOff(list) {
     while (list.length > 0) {
-        console.log(list[0]);
-        list.shift();
+        console.log(list.shift()); // improvement: shortened code by using the property that shift() returns the removed element
     }
-    
+    return list; //addition: added return statement
 }
 
 checkOff(groceryList);
