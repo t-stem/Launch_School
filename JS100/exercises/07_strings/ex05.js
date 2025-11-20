@@ -6,8 +6,9 @@ let string1 = 'Polar Bear';
 let string2 = 'Polar bear';
 let string3 = 'Penguin';
 
-console.log(string1.toLowerCase() === string2.toLowerCase() === string3.toLowerCase());
+let stringComp = (str1, str2) => {console.log(`Comparison of "${str1}" and "${str2}" results in ${str1.toLowerCase() === str2.toLowerCase()}.`)}
 
-
-
+stringComp(string1, string2);
+stringComp(string1, string3);
+stringComp(string2, string3);
 
