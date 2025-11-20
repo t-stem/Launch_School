@@ -6,5 +6,5 @@ Write an if statement that logs 'Yes!' if randomNumber is 1, and 'No.' if random
 let randomNumber = Math.round(Math.random());
 
 if (randomNumber) {console.log('Yes!')} // correction: added exclamation points to output strings to match required output!!
-else {console.log('No!')}
+else {console.log('No.')} // correction2: replaced exclamation point with period to match required output
 
