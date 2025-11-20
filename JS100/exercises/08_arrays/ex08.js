@@ -6,6 +6,6 @@ function filter(input) {
   return Array.isArray(input);
 }
 
-array = {}
+const array = {} // a
 
 console.log(filter(array));
