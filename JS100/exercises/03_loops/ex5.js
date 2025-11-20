@@ -4,7 +4,10 @@
 let array = [1, 2, 3, 4];
 let index = 0;
 
-for (i = index; i < array.length; i += 1) {
-    console.log(array[i]);
+while (index < array.length) {
+    console.log(array[index]);
+    index += 1
 }
+
+
 
