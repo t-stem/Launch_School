@@ -25,7 +25,7 @@ function extractLanguage(locale) {
 }
 
 function extractRegion(locale) {
-    return locale.slice(locale.indexOf('_')+1,locale.indexOf('.')); 
+    return locale.slice(locale.indexOf('_') + 1,locale.indexOf('.')); 
 }
 
 function greet(language, region) {
@@ -38,6 +38,8 @@ function greet(language, region) {
                     return 'Hello!';
                 case 'AU':
                     return 'Howdy!';
+                default:
+                    return 'Region not recognized.';
             }
         case 'fr':
             return 'Salut!';
@@ -45,6 +47,8 @@ function greet(language, region) {
             return 'Konnichiwa!';
         case 'nl':
             return 'Hallo!';
+        default:
+            return 'Language not recognized.'
     }
 }
 
