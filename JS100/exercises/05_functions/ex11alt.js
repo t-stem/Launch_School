@@ -45,9 +45,11 @@ function greet(language) {
 
 function localGreet(locale) {
     let language = extractLanguage(locale);
+    if (language !== 'en') {
+        return greet(language);
+    }
     let region = extractRegion(locale);
-    if (language === 'en') {
-        switch (region) {
+    switch (region) {
                 case 'US':
                     return 'Hey!';
                 case 'GB':
@@ -57,8 +59,6 @@ function localGreet(locale) {
                 default:
                     return 'Hello!';
             }
-    }
-    return greet(language);
 }
 
 console.log(localGreet('en_AU.UTF-8'));
