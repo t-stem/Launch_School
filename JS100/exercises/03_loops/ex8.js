@@ -3,7 +3,7 @@
 let i = 1;
 
 while (i <= 40) { 
-    if (i % 2 !== 0) {console.log(i)} // use <== instead of <= for strict inequality!
+    if (i % 2 !== 0) {console.log(i)} // use !== instead of <= for strict inequality!
     i += 1;
 }
 
@@ -11,9 +11,9 @@ while (i <= 40) {
 
 console.log("Alternative solution: ")
 
-i = 1;
+let j = 1;
 
-while (i < 40) {
-    console.log(i);
-    i += 2;
+while (j < 40) {
+    console.log(j);
+    j += 2;
 }
