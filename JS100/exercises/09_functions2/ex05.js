@@ -10,7 +10,7 @@ For example: */
 
 const catAge = function(humanYears) {
     if (humanYears < 0) {
-        return "invalid age";
+        return undefined; // improvement: changed return value from string to undefined to avoid mixing data types of return values
     }
     switch (humanYears) {
         case 0:
