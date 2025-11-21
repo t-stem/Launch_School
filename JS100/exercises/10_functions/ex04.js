@@ -15,7 +15,7 @@ let greeting = function(name) {
   },
   occupation: 'engineer',
   // add code here
-  greet: greeting
+  greet: greeting, // fix: added comma
   greet2: (name) => console.log(name), // added alternative
   greet3: function(name) {console.log(name)} // added alternative
 };
