@@ -16,6 +16,8 @@ let greeting = function(name) {
   occupation: 'engineer',
   // add code here
   greet: greeting
+  greet2: (name) => console.log(name), // added alternative
+  greet3: function(name) {console.log(name)} // added alternative
 };
 
 jane.greet('Bobby'); // Hey, Bobby!
