@@ -11,8 +11,8 @@ Return the result as a string rounded to two decimals. For example:
 */
 
 function calculateBMI(heightInCentimeters, weightInKilograms) {
-    heightInMeters = heightInCentimeters / 100;
-    return weightInKilograms / heightInMeters ** 2;
+    let heightInMeters = heightInCentimeters / 100; // correction: added to declare as variable with block scope rather than global scope
+    return (weightInKilograms / heightInMeters ** 2).toFixed(2); // correction: added .toFixed() method to deliver correct output
 }
 
 console.log(calculateBMI(180, 80)); // "24.69"
