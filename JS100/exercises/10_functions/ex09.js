@@ -6,7 +6,6 @@ let nestedArray = [['title', 'Duke'], ['name', 'Nukem'], ['age', 33]];
 // { title: 'Duke', name: 'Nukem', age: 33 }
 
 let obj = {};
-let obj2 = {};
 nestedArray.forEach(subArray => obj[subArray[0]] = subArray[1]);
 
 
