@@ -29,7 +29,11 @@ let person = {
 
 
 function clone(obj) {
-  return Object.create(obj)
+    let newObj = {}
+    for (key in obj) {
+        newObj[key] = obj[key];
+    } 
+    return newObj;
 }
 
 let clonedPerson = clone(person);
