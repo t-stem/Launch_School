@@ -10,10 +10,13 @@ to collect user input.
 
 let readline = require("readline-sync");
 
-const feetConversion = 10.7639;
-let length = readline.question("Please enter length in meters: ");
-let width = readline.question("Please enter width in meters: ");
+const FEET_CONVERSION = 10.7639; // improvement: name const in all caps
+let length = Number(readline.question("Please enter length in meters: ")); // improvement: convert input strings to numbers right away -> mimic example given
+let width = Number(readline.question("Please enter width in meters: "));
+let areaSqM = width * length;
+let areaSqFt = areaSqM * FEET_CONVERSION;
 
-console.log(`Area in square meters = ${length * width}`);
-console.log(`Area in square feet = ${length * width * feetConversion}`);
+
+console.log(`The area of the room is ${areaSqM.toFixed(2)} square meters (${areaSqFt.toFixed(2)} square feet).`) // correction: output consistency with problem statement, one phrase with numbers rounded to two decimals
+
 
