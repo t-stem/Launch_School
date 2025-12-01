@@ -11,7 +11,7 @@ let billAmount = Number(readline.question("Please enter bill amount: "));
 let tipRate = Number(readline.question("Please enter tip rate: "));
 
 // compute the tip
-let tipAmount = billAmount * tipRate;
+let tipAmount = billAmount * (tipRate / 100); // correction: updated so that tipRate is integer in line with requirements;
 
 // log both the tip and the total amount of the bill to the console
 console.log(`Tip = ${tipAmount}`);
