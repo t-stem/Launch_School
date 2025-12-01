@@ -14,7 +14,5 @@ let tipRate = Number(readline.question("Please enter tip rate: "));
 let tipAmount = billAmount * (tipRate / 100); // correction: updated so that tipRate is integer in line with requirements;
 
 // log both the tip and the total amount of the bill to the console
-console.log(`Tip = ${tipAmount}`);
-console.log(`Total amount = ${billAmount + tipAmount}`);
-
-
+console.log(`The tip is $${tipAmount.toFixed(2)}`); // correction: reformatted output to match exercise reqs (used toFixed() method to round to 2 decimals)
+console.log(`The total is $${(billAmount + tipAmount).toFixed(2)}`);
