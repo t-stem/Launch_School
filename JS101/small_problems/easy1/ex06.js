@@ -44,9 +44,9 @@ while (!(desiredOperation === 's' || desiredOperation === 'p')); // old version 
 // output the desired result
 switch (desiredOperation) {
     case 's':
-        console.log(sumInt(desiredInteger));
+        console.log(`The sum of the integers between 1 and ${desiredInteger} is ${sumInt(desiredInteger)}.`);
         break;
     case 'p':
-        console.log(productInt(desiredInteger));
+        console.log(`The product of the integers between 1 and ${desiredInteger} is ${productInt(desiredInteger)}.`);
         break;
 }
