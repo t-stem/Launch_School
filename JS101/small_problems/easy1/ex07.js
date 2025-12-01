@@ -4,7 +4,7 @@ and the shorter string once again. You may assume that the strings are of differ
 */
 
 // Write a function that takes two strings as arguments
-function shortLongShort(string1, string2) {
+function shortLongShort2(string1, string2) {
     // determine the length of the two strings
     let length1 = string1.length;
     let length2 = string2.length;
@@ -16,6 +16,12 @@ function shortLongShort(string1, string2) {
     else { // this logic works because we can assume that one string is longer than the other
         return string1 + string2 + string1
     }
+}
+
+// improvement: alternative version
+function shortLongShort(string1, string2) {
+    const [shortString, longString] = string1.length < string2.length ? [string1, string2] : [string2, string1];
+    return shortString + longString + shortString;
 }
 
 console.log(shortLongShort('abc', 'defgh'));    // "abcdefghabc"
