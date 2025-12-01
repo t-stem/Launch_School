@@ -8,20 +8,12 @@ Using this information, update the function from the previous exercise to determ
 eap years both before and after 1752. */
 
 let isLeapYear = function (year) {
-    if (year > 1752) {
-        if (year % 400 === 0) { 
-        return true;
-    }
-    else if (year % 4 === 0 && year % 100 !== 0) { 
-        return true;
-    }
-    return false;
-    }
-    else {
-        return year % 4 === 0
+    if (year >= 1752) { // correction: Gregorian calendar was adopted in 1752, so this year should be included (changed > to >=)
+        return (year % 400 === 0) || (year % 4 === 0 && year % 100 !== 0); // improvement: shortened by adding logic directly in the return statement
+    } else {
+        return year % 4 === 0; // improvement: shortened by adding logic directly in 
     }
 }
-
 
 
 console.log(isLeapYear(2016));      // true
