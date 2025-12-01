@@ -11,7 +11,7 @@ Write a function that takes any year greater than 0 as input and returns true if
 
 // Write a function that takes any year greater than 0 as input
 
-let isLeapYear = function (year) {
+let isLeapYear2 = function (year) {
     // year is divisible by 400
     if (year % 400 === 0) { // if year is divisible by 400 it's always a leap year, since it's also divisible by 100 in that case
         // returns true if the year is a leap year 
@@ -26,7 +26,9 @@ let isLeapYear = function (year) {
    
 }
 
-
+let isLeapYear = function (year) {
+    return (year % 400 === 0) || (year % 4 === 0 && year % 100 !== 0); // important alternative: you can add proposition logic directly in the return statement
+}
 
 console.log(isLeapYear(2016));      // true
 console.log(isLeapYear(2015));      // false
