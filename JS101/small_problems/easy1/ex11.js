@@ -6,7 +6,7 @@ The UTF-16 string value is the sum of the UTF-16 values of every character in th
 function utf16Value (str) {
     // determines and the UTF-16 string value
     let accumulator = 0;
-    for (i = 0; i < str.length; i += 1) {
+    for (let i = 0; i < str.length; i += 1) { // correction: need to declare iterator variable using let to avoid global scope
         accumulator += str.charCodeAt(i);
     }
     // returns the UTF-16 string value
