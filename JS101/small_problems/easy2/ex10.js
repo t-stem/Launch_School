@@ -5,8 +5,8 @@
 let readlineSync = require("readline-sync");
 
 const CURRENT_YEAR = 2017;
-let currentAge = readlineSync.question("What is your age? ");
-let retirementAge = readlineSync.question("At what age would you like to retire? ");
+let currentAge = Number(readlineSync.question("What is your age? "));
+let retirementAge = Number(readlineSync.question("At what age would you like to retire? "));
 let yearsToRetirement = retirementAge - currentAge;
 let retirementYear = CURRENT_YEAR + yearsToRetirement;
 
