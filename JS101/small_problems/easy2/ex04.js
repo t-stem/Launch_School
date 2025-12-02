@@ -2,11 +2,15 @@
 write a function that computes the square of its argument 
 (the square is the result of multiplying a number by itself). */
 
-function square(arg) {
-    if (typeof(arg) !== "number") {
-        throw Error("Please enter a number.");
+function multiply(arg1, arg2) {
+    if (isNaN(arg1) || isNaN(arg2)) {
+        throw Error("Please enter two numbers.");
     }
-    return arg * arg;
+    return arg1 * arg2;
+}
+
+function square(arg) {
+    return multiply(arg, arg);
 }
 
 console.log(square(5) === 25); // logs true
