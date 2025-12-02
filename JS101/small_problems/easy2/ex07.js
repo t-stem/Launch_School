@@ -15,10 +15,10 @@ returned by || and &&.
 */ 
 
 function xor (arg1, arg2) {
-    if (arg1 === 0 && arg2 === 0) {
-        return false
-    }
-   return (arg1 && !arg2) || (!arg1 && arg2);
+//    if (arg1 === 0 && arg2 === 0) {
+//        return false
+//    }
+   return Boolean((arg1 && !arg2) || (!arg1 && arg2)); // correction: use explicit coersion instead of if statement
 }
 
 
