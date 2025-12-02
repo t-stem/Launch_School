@@ -5,7 +5,7 @@ Write a function that takes a non-empty string argument and returns the middle c
 
 */ 
 
-function centerOf (phrase) {
+function centerOf2 (phrase) {
     if (typeof(phrase) !== 'string' || phrase === '') {
         throw Error("Please enter a non-empty string.");
     }
@@ -15,6 +15,17 @@ function centerOf (phrase) {
         return phrase[PHRASE_MIDDLE - 1] + phrase[PHRASE_MIDDLE];
     } else {
         return phrase[Math.floor(PHRASE_MIDDLE)]
+    }
+}
+
+
+// improvement: shorter alternative
+function centerOf(phrase) {
+    if (typeof(phrase) !== 'string' || phrase === '') {
+        throw Error("Please enter a non-empty string.");
+    } else {
+        const middleChar = Math.floor(phrase.length / 2);
+        return phrase.length % 2 === 0 ? phrase.slice(middleChar -1, middleChar + 1) : phrase[middleChar];
     }
 }
 
