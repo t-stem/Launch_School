@@ -6,8 +6,9 @@ let readlineSync = require("readline-sync");
 
 let name = readlineSync.question("What is your name? ");
 
-if (name.slice(name.length - 1) === "!") {
-    console.log(`HELLO ${name.slice(0, name.length - 1).toUpperCase()}. WHY ARE WE SCREAMING?`)
+if (name[name.length - 1] === "!") {
+    let cleanName = name.slice(0, name.length - 1);
+    console.log(`HELLO ${cleanName.toUpperCase()}. WHY ARE WE SCREAMING?`);
 } else {
     console.log(`Hello ${name}.`);
 }
