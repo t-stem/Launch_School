@@ -6,8 +6,8 @@ Do not worry about validating the input.*/
 
 let readlineSync = require("readline-sync");
 
-let int1 = readlineSync.question("==> Enter the first number: ");
-let int2 = readlineSync.question("==> Enter the second number: ");
+let int1 = Number(readlineSync.question("==> Enter the first number: ")); // correction: readline returns strings -> corrected to convert to numbers
+let int2 = Number(readlineSync.question("==> Enter the second number: "));
 
 console.log(`==> ${int1} + ${int2} = ${int1 + int2}`);
 console.log(`==> ${int1} - ${int2} = ${int1 - int2}`);
