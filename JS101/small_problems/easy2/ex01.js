@@ -9,9 +9,10 @@
 
 
 function greetings (nameArray, workObject) {
-    let name = "";
-    nameArray.forEach((element) => name = name + element + " ");
-    return (`Hello, ${name.trimEnd()}! Nice to have a ${workObject.title + " " + workObject.occupation} around.`);
+    // let name = "";
+    // nameArray.forEach((element) => name = name + element + " "); // correction: better version in next line
+    let name = nameArray.join(" ");
+    return (`Hello, ${name}! Nice to have a ${workObject.title} ${workObject.occupation} around.`);
 }
 
 console.log(
