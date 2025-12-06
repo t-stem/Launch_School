@@ -1,17 +1,13 @@
-/* Take everything that you've learned so far and build a mortgage calculator 
-(or car payment calculator -- it's the same thing) that determines the monthly payment assuming 
-that interest is compounded monthly. */
-
 let readlineSync = require("readline-sync");
 
-let loanUSD; 
+let loanUSD;
 let loanYears;
 let APR;
 
 do {
     loanUSD = Number(readlineSync.question("Please enter loan amount in US$: "));
 }
-while (Number.isNaN(loanUSD) ||loanUSD <= 0);
+while (Number.isNaN(loanUSD) || loanUSD <= 0);
 
 do {
     loanYears = Number(readlineSync.question("Please enter loan duration in years: "));
@@ -23,24 +19,16 @@ do {
 }
 while (Number.isNaN(APR) || APR < 0);
 
-let loanMonths = Math.floor(loanYears  * 12);
-let monthlyInterestRate = APR / 12;
+let loanMonths = Math.floor(loanYears  * 12); // .floor method is a design choice to reflect that the number of months should be discrete. This behaviour deviates slightly from the behavior on https://www.calculator.net/loan-calculator.html
+let monthlyInterestRate = APR / 12 / 100;
 let monthlyPayment;
+
+console.log(loanMonths)
 
 if (APR === 0) {
     monthlyPayment = loanUSD / loanMonths;
-}
-else {
-    monthlyPayment = loanUSD * (monthlyInterestRate / (1 - (1 + monthlyInterestRate) ** -loanMonths));
+} else {
+    monthlyPayment = loanUSD * (monthlyInterestRate / (1 - ((1 + monthlyInterestRate) ** (-loanMonths))));
 }
 
 console.log(`Your monthly payment is: $${monthlyPayment.toFixed(2)}`);
-
-
-
-
-
-
-
-
-
