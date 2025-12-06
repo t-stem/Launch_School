@@ -51,6 +51,10 @@ Examples/Test Case: Validate understanding of the problem
 -> APR === null
 -> APR === ''
 -> APR === ' '
+-> standard case (in line with https://www.calculator.net/loan-calculator.html):
+   loanUSD = 100000
+   loanYears = 10
+   APR = 6
 -> loans that aren't for an integer number of years
 
 Data Structure: How we represent data that we will work with when converting the input to output.
