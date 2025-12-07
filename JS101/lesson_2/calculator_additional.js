@@ -8,60 +8,65 @@ function prompt(stringInput) {
     console.log(`=> ${stringInput}`);
 }
 
-function invalidNumber (inputNumber) {
-    return inputNumber.trimStart() === '' || Number.isNaN(Number(inputNumber));
+function getNumber(nthNumber) {
+    prompt(calculatorMessages[language][nthNumber]);
+    let chosenNumber = readlineSync.question();
+    if (chosenNumber.trimStart() === '') {
+        throw Error(calculatorMessages[language].errorEmpty);
+    } else if (Number.isNaN(Number(chosenNumber))) {
+        throw Error(calculatorMessages[language].errorNaN);
+    } else {
+        return Number(chosenNumber);
+    }
 }
 
-function calculation() {
-
-    let number1;
-    let number2;
-    let output;
-
-    do {
-        prompt(calculatorMessages[language].first);
-        number1 = readlineSync.question();
-    }
-    while (invalidNumber(number1) === true);
-
-    do {
-    prompt(calculatorMessages[language].second);
-    number2 = readlineSync.question();
-    }
-    while (invalidNumber(number2) === true);
-
+function getOperation() {
     let operation;
     let allowedOperations = ['1', '2', '3', '4'];
+
     while (!allowedOperations.includes(operation)) {
         prompt(calculatorMessages[language].options);
         operation = readlineSync.question();
     }
+    return operation;
+}
 
-    switch (operation) {
+function calculation(firstNumber, secondNumber, chosenOp) {
+    let output;
+    switch (chosenOp) {
         case '1':
-            output = Number(number1) + Number(number2);
+            output = Number(firstNumber) + Number(secondNumber);
             break;
         case '2':
-            output = Number(number1) - Number(number2);
+            output = Number(firstNumber) - Number(secondNumber);
             break;
         case '3':
-            output = Number(number1) * Number(number2);
+            output = Number(firstNumber) * Number(secondNumber);
             break;
         case '4':
-            output = Number(number1) / Number(number2);
-            break;
+            if (secondNumber === 0) {
+                throw Error(calculatorMessages[language].errorDivZero);
+            } else {
+                output = Number(firstNumber) / Number(secondNumber);
+                break;
+            }
     }
-
     prompt(calculatorMessages[language].result + output);
 }
 
 let nextCalc;
 do {
     nextCalc = "";
-    calculation();
-    while (nextCalc !== 'Yes' && nextCalc !== 'No') {
+    let number1 = getNumber("first");
+    let number2 = getNumber("second");
+    let operation = getOperation();
+
+    calculation(number1, number2, operation);
+
+    while (!calculatorMessages[language].allowedAffirm.includes(nextCalc) &&
+            !calculatorMessages[language].allowedNeg.includes(nextCalc)) {
         nextCalc = readlineSync.question(calculatorMessages[language].repeat);
     }
 }
-while (nextCalc === 'Yes');
+while (calculatorMessages[language].allowedAffirm.includes(nextCalc));
 
