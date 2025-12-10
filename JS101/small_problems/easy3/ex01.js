@@ -3,17 +3,15 @@ of the original string with all consecutive duplicate characters collapsed into 
 
 function crunch(inputWord) {
     let chars = inputWord.split("");
-    let previousChar;
     let deduplicatedWord = chars.reduce(function(accumulator, char) {
-        if (previousChar === char) {
-            previousChar = char;
+        if (accumulator.charAt(accumulator.length - 1) === char) { //improvement: removed previousChar variable to reduce dependency of callback functions on out of scope vars
             return accumulator; // Note: callback function in .reduce() method must have a return value, which is used as the accumulator in the next iteration. Arrow functions implicitly return a value
         } else {
-            previousChar = char;
             return accumulator + char;
         }
-    }, "")
-   return deduplicatedWord;
+    }, "");
+    console.log(deduplicatedWord)
+    return deduplicatedWord;
 }
 
 crunch('ddaaiillyy ddoouubbllee');    // "daily double"
