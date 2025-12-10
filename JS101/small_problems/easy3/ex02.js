@@ -1,9 +1,5 @@
 /* Write a function that will take a short line of text, and write it to the console log within a box. */
 
-let template = '';
-
-
-
 function logInBox(text) {
     const TEXT_LENGTH = text.length;
     let lineOuter = `+-${"-".repeat(TEXT_LENGTH)}-+`;
