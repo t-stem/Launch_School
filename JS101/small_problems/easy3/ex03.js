@@ -14,6 +14,15 @@ function stringy(integer) {
     return outputString;
 }
 
+// short alternative
+function stringyShort (integer) {
+    let outputString = "";
+    for (let i = 0; i < integer; i += 1) {
+        outputString += i % 2 === 0 ? '1' : '0' 
+    }
+    return outputString;
+}
+
 
 console.log(stringy(6));    // "101010"
 console.log(stringy(9));    // "101010101"
