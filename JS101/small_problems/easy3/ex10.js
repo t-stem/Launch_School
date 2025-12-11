@@ -8,11 +8,22 @@ New centuries begin in years that end with 01. So, the years 1901 - 2000 compris
 */
 
 function centuryEnding(century) {
-    const exceptionsLookup = Object.freeze({1: 'st', 2: 'nd', 3: 'rd', 21: 'st', 22: 'nd', 23: 'rd'});
-    const endingExceptions = Object.keys(exceptionsLookup);
-    const centuryString = String(century);
-    return endingExceptions.includes(centuryString) ? exceptionsLookup[centuryString] : 'th';
+    const lastTwoDigits = century % 100;
+    if (lastTwoDigits > 10 && lastTwoDigits < 14) {
+        return 'th'
+    }
     
+    const lastDigit = century % 10;
+    switch (lastDigit) {
+        case 1: 
+            return 'st';
+        case 2:
+            return 'nd';
+        case 3:
+            return 'rd';
+        default:
+            return 'th';
+    }
 }
 
 function century (year) {  
