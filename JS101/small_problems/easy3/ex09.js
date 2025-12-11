@@ -3,7 +3,7 @@ write a function that returns that string with all of the non-alphabetic charact
 If one or more non-alphabetic characters occur in a row, 
 you should only have one space in the result (i.e., the result string should never have consecutive spaces). */
 
-function cleanUp(inputString) {
+function cleanUp2(inputString) {
     const acceptedChars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l','m', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
     let cleanString = inputString;
 
@@ -19,5 +19,15 @@ function cleanUp(inputString) {
 
     return cleanString
 }
+
+// improvement: streamlined version
+
+function cleanUp (inputString) {
+    let cleanString = inputString;
+    cleanString = cleanString.replaceAll(/[^a-z]/g, " ");
+    cleanString = cleanString.replaceAll(/\s+/g, " ");
+    return cleanString
+}
+
 
 console.log(cleanUp("---what's my +*& line?"));    // " what s my line "
