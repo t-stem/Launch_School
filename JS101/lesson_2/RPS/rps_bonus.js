@@ -1,15 +1,24 @@
 const readlineSync = require("readline-sync");
 const VALID_CHOICES = Object.freeze(["rock", "paper", "scissors", "spock", "lizzard"]);
 const VALID_SHORT_CHOICES = Object.freeze(["r", "p", "l", "s"]);
-const VALID_ANSWERS = Object.freeze(["Yes", "yes", "y", "No", "no", "n"]);
+const VALID_ANSWERS = Object.freeze(["yes", "y", "no", "n"]); // improvement: removed capitalized versions since .toLowerCase() method is now used consistently
 const VALID_MODES = Object.freeze(["one", "five"]);
+const USER_WIN = 1; // improvement: added const
+const COMPUTER_WIN = -1; // improvement: added const
+const TIE = 0; // improvement: added const
 const WINNERS = Object.freeze({
-    rock: Object.freeze({rock: 0, paper: -1, scissors: 1, spock: -1, lizzard: 1}),
-    paper: Object.freeze({rock: 1, paper: 0, scissors: -1, spock: 1, lizzard: -1}),
-    scissors: Object.freeze({rock: -1, paper: 1, scissors: 0, spock: -1, lizzard: 1}),
-    spock: Object.freeze({rock: 1, paper: -1, scissors: 1, spock: 0, lizzard: -1}),
-    lizzard: Object.freeze({rock: -1, paper: 1, scissors: -1, spock: 1, lizzard: 0})
+    rock: Object.freeze({rock: TIE, paper: COMPUTER_WIN,
+        scissors: USER_WIN, spock: COMPUTER_WIN, lizzard: USER_WIN}),
+    paper: Object.freeze({rock: USER_WIN, paper: TIE,
+        scissors: COMPUTER_WIN, spock: USER_WIN, lizzard: COMPUTER_WIN}),
+    scissors: Object.freeze({rock: COMPUTER_WIN, paper: USER_WIN,
+        scissors: TIE, spock: COMPUTER_WIN, lizzard: USER_WIN}),
+    spock: Object.freeze({rock: USER_WIN, paper: COMPUTER_WIN,
+        scissors: USER_WIN, spock: TIE, lizzard: COMPUTER_WIN}),
+    lizzard: Object.freeze({rock: COMPUTER_WIN, paper: USER_WIN,
+        scissors: COMPUTER_WIN, spock: USER_WIN, lizzard: TIE})
 });
+const WIN_BOF = 5;
 
 function prompt(message) {
     console.log(`=> ${message}`);
@@ -27,7 +36,7 @@ function getSChoice() {
     let choice;
     do {
         prompt(`Choose ${VALID_CHOICES[2]} or ${VALID_CHOICES[3]}`);
-        choice = readlineSync.question();
+        choice = readlineSync.question().toLowerCase(); // improvement: added .toLowerCase() method
         if (validateSChoices(choice)) {
             prompt("That's not a valid choice");
         }
@@ -67,19 +76,19 @@ function getInput() {
     return chosenValue;
 }
 
-let determineWinner = function(userChoice, computerChoice) {
+function determineWinner(userChoice, computerChoice) {
     return WINNERS[userChoice][computerChoice];
-};
+}
 
 function displayWinner(winner) {
     switch (winner) {
-        case -1:
+        case COMPUTER_WIN:
             prompt("Computer wins!");
             break;
-        case 0:
+        case TIE:
             prompt("It's a tie");
             break;
-        case 1:
+        case USER_WIN:
             prompt("You win!");
             break;
     }
@@ -106,14 +115,15 @@ function playSingle() {
         let answer;
         do {
             prompt("Do you want to play again (y/n)?");
-            answer = readlineSync.question();
+            answer = readlineSync.question().toLowerCase();
             if (validateAnswer(answer)) {
                 prompt("That's not a valid answer");
             }
         }
         while (validateAnswer(answer));
 
-        if (VALID_ANSWERS.slice(3, 6).includes(answer)) break;
+        if (VALID_ANSWERS.slice(2, 4).includes(answer)) break;
+        console.clear(); // improvement: added
     }
 }
 
@@ -121,24 +131,24 @@ function playBestOfFive() {
     let scoreUser = 0;
     let scoreComputer = 0;
 
-    while (scoreUser < 5 && scoreComputer < 5) {
+    while (scoreUser < WIN_BOF && scoreComputer < WIN_BOF) { // improvement: replaced 5 with const WIN_BOF
         let winner = playGame();
         displayWinner(winner);
 
-        if (winner === -1) {
+        if (winner === COMPUTER_WIN) { // improvement: replaced magic number
             scoreComputer += 1;
-        } else if (winner === 1) {
+        } else if (winner === USER_WIN) { // improvement: replaced magic number
             scoreUser += 1;
-        };
+        }
 
         prompt(`Your score: ${scoreUser}, computer score: ${scoreComputer}`);
     }
 
-    if (scoreUser === 5) {
+    if (scoreUser === WIN_BOF) { // improvement: replaced 5 with const WIN_BOF
         prompt("You won best of five!");
-    } else if (scoreComputer === 5) {
+    } else if (scoreComputer === WIN_BOF) { // improvement: replaced 5 with const WIN_BOF
         prompt("Computer won best of five!");
-    };
+    }
 }
 
 function validateMode(chosenMode) {
@@ -148,7 +158,7 @@ function validateMode(chosenMode) {
 let mode;
 do {
     prompt("Play a single game or best of five? Enter 'one' or 'five': ");
-    mode = readlineSync.question().toLowerCase();
+    mode = readlineSync.question().toLowerCase(); // improvement: added .toLowerCase() method
     if (validateMode(mode)) {
         prompt("That's not a valid mode");
     }
@@ -160,4 +170,3 @@ if (mode === "one") {
 } else if (mode === "five") {
     playBestOfFive();
 }
-
