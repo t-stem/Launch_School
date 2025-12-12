@@ -51,6 +51,10 @@ The solution is structued in an adequate way, it's not overly complex.
 
 - Would it make more sense to use different looping or conditional structures?
 The for loop is appropriate here given that the number of iterations is pre-determined by the input variable, which is captured well in a for loop.
+ADDITION: the if else structure could be shortened by using an OR statement
+if (y % 3 === 0 or y % 5 === 0) {
+  result += y;
+}
 
 - Would the solution benefit from helper functions?
 There are no repetitive or overly long blocks of code so helper functions wouldn't be beneficial here. 
