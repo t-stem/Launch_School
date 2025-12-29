@@ -24,10 +24,14 @@ function oddities(the_array) {
 
 /*
 Does the solution meet the problem requirements?
-- Yes, the solution returns the correct ouputs as specified in the requirements
+- The solution returns the correct ouputs for the test cases specified in the requirements
+CORRECTION: - However, when the_array contains null in one of the required elements, the null value won't be pushed to the final_array in the second for loop
+- as a result, the code doesn't return the required output under all scenarios
 
 Is the code readable and easy to understand?
 - The code is readable and easy to understand, but the logic could be simplified and the naming conventions for JavaScript could be applied correctly (see below)
+- CORRECTION: the syntax "index % 2" in the if statement on line 2 could be improved. It returns true if the expression is truthy, but for readability it would be better to make the condition more explicit "index % 2 === 0"
+
 
 Do variable and function names adhere to JavaScript naming conventions?
 - No, the developer used underscores + lower case for variable names rather than camelCase
@@ -35,7 +39,7 @@ Do variable and function names adhere to JavaScript naming conventions?
 Are the variable and function names meaningful and precise?
 - The variable and function names are meaningful but could be improved, e.g.:
 - function oddElements instead of oddities
-- inputrray instead of the_array
+- inputArray instead of the_array
 - outputArray instead of final_array
 
 Is the code formatted correctly and free of syntax errors?
@@ -48,8 +52,6 @@ Is the solution repetitive or overly complex?
 - This would eliminate the need for if-else logic in this for loop
 - By removing the line that pushes null to array_with_nones and subsequently looping through array_with_nones, the second for loop can also be removed
 - The code could then push the required values directly to final_array without an intermediary step
-- As an alternative, the .map() method could be used to loop through the elements of the_array and return a new array with only odd elements
-- E.g. return the_array.map(element => if (element % 2 === 0));
 
 Would it make more sense to use different looping or conditional structures?
 - Yes, see above
