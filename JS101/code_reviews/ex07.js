@@ -33,7 +33,8 @@ Are the variable and function names meaningful and precise?
 
 Is the code formatted correctly and free of syntax errors?
 - Yes, it is formatted correctly and free of syntax errors, but could benefit from some empty lines between sections of code (e.g. after declaring two variables using let)
-- The code uses != rather than !== in the second if statement. This returns true if both expressions are truthy and doesn't strictly compare whether they are equal. The !== operator would be better here.
+- The code uses != rather than !== in the second if statement. This doesn't strictly compare whether they are equal, since it allows for type coersion. !== would be a safer option here
+
 
 Is the solution repetitive or overly complex?
 - text.length is repeated and could be stored in a separate variable or constant
