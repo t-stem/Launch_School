@@ -18,14 +18,13 @@ function isPalindrome(inputString) {
   let loopEnd = Math.floor(stringLength / 2);
   let stringToArray = [...inputString];
   
-  for (i = 0; i < loopEnd; i += 1) {
+  for (let i = 0; i < loopEnd; i += 1) { // CORRECTION added let declaration for i variable
     if(stringToArray[i] !== stringToArray[stringLength - 1 - i]) {
       return false;
     }
   }
   return true;
 }
-
 
 console.log(isRealPalindrome('madam'));               // true
 console.log(isRealPalindrome('Madam'));               // true (case does not matter)
