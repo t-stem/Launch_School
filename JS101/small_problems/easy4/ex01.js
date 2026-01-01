@@ -7,23 +7,25 @@ let readlineSync = require('readline-sync');
 let numbers = [];
 
 function validateInput(input) {
-  return !isNaN(Number(input))
+  return !isNaN(input); // IMPROVEMENT: ADJUSTED FUNCTION TO REFLECT PASSING inputToNumber AS AN ARGUMENT INSTEAD OF userInput
 }
 
-let userInput;
+let inputToNumber; // changed global variable to inputToNumber
 for (let i = 0; i < 6; i += 1) {
   do {
-    userInput = readlineSync.question("Please enter a number: ");
-    if (validateInput(userInput)) {
-      numbers.push(userInput);
+    let userInput = readlineSync.question("Please enter a number: "); // changed userInput to local variable
+    inputToNumber = Number(userInput); // IMPROVEMENT: stored Number(userInput) in a variable
+
+    if (validateInput(inputToNumber)) { // IMPROVEMENT: VALIDATING inputToNumber RATHER THAN userInput
+      numbers.push(inputToNumber); // IMPROVEMENT: pushed inputToNumber RATHER THAN userInput
     } else {
       console.log("Error: value entered is not a number.");
     }
   } 
-  while (!validateInput(userInput))
+  while (!validateInput(inputToNumber)) // IMPROVEMENT: VALIDATE inputToNumber FOR CONSITENCY WITH 
 }
 
-if (numbers.slice(0, 4).includes(numbers[5])) {
+if (numbers.slice(0, 5).includes(numbers[5])) { // CORRECTION: SLICE NEEDS TO USE INDEX 5 RATHER THAN FOUR, OTHERWISE THE FOURTH ELEMENT IS NOT INCLUDED
   console.log("Sixth number appears among the first five numbers.");
 } else {
   console.log("Sixth number doesn't appear among the first five numbers.");
