@@ -5,9 +5,9 @@ Write a function that returns true if the string passed as an argument is a pali
 function isPalindrome(inputString) {
   let stringLength = inputString.length;
   let loopEnd = Math.floor(stringLength / 2);
-  let stringToArray = [...inputString];
+  let stringToArray = [...inputString]; // IMPROVEMENT: this line is not needed since strings are already indexable
   
-  for (i = 0; i < loopEnd; i += 1) {
+  for (let i = 0; i < loopEnd; i += 1) { // CORRECTION: added let declaration for i variable
     if(stringToArray[i] !== stringToArray[stringLength - 1 - i]) {
       return false;
     }
