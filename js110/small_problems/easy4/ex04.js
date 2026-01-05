@@ -17,8 +17,8 @@ function isPalindromicNumber(inputNumber) {
   let secondHalfStart = oddLength ? firstHalfEnd + 1 : firstHalfEnd;
   let reversedSecondHalf = digitsString.slice(secondHalfStart, digitsLength).reverse();
   
-  let firstHalfString = firstHalf.join();
-  let reversedSecondHalfString = reversedSecondHalf.join()
+  let firstHalfString = firstHalf.join(""); // CORRECTON: join without an argument uses a comma as a separator
+  let reversedSecondHalfString = reversedSecondHalf.join("")
 
   return firstHalfString === reversedSecondHalfString;
   }
