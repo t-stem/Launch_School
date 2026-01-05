@@ -15,11 +15,12 @@ function wordSizes(inputString) {
   .split(" ")
   .forEach(word => {
     let len = cleanWordLength(word);
-    let lenNotZero = len !== 0;
-
-    if (!lengthCounts[len] && lenNotZero) {
+ 
+    if (len === 0) { // IMPROVEMENT: slightly adjusted control flow with return statement to escape .forEach() callback when length is zero and avoid repeting length check
+      return;
+    } else if (!lengthCounts[len]) {
       lengthCounts[len] = 1;
-    } else if (lenNotZero) {
+    } else {
       lengthCounts[len] += 1;
     }
   });
