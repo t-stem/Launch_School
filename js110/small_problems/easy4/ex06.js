@@ -11,7 +11,7 @@ function wordSizes(inputString) {
   let countOfLengths = {};
 
   wordLengthsArray.forEach(wordLength => {countOfLengths[wordLength] =
-    wordLengthsArray.filter(lengthItem => lengthItem === wordLength)
+    wordLengthsArray.filter(letterCount => letterCount === wordLength)
     .length;
   });
   
