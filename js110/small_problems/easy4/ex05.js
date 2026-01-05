@@ -4,16 +4,25 @@ but with each element's value being the running total from the original array.
 
 */
 
-function runningTotal(inputArray) {
+function runningTotal2(inputArray) {
   let outputArray = [];
-  let runningTotal = 0;
+  let runningSum = 0; // IMPROVEMENT: avoid using variable names that are identical to function names - changed from runningTotal to runningSum
   
-  for (element of inputArray) {
-    runningTotal += element;
-    outputArray.push(runningTotal);
+  for (let element of inputArray) { // CORRECTION: in for ... of loops, the loop variable also needs to be declared
+    runningSum += element;
+    outputArray.push(runningSum); 
   }
 
   return outputArray;
+}
+
+function runningTotal(inputArray) { // ALTERNATIVE SOLUTION: added alternative using map
+  let runningSum = 0
+  
+  return inputArray.map(element => {
+    runningSum += element;
+    return runningSum // note: callback function needs to return a value to map method, which will be added to the new array
+  }) 
 }
 
 
