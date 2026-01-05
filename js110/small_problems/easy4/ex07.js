@@ -8,7 +8,7 @@ function cleanWordLength(word) {
 }
 
 
-function wordSizes(inputString) {
+function wordSizes2(inputString) {
   let lengthCounts = {};
 
   inputString
@@ -28,6 +28,23 @@ function wordSizes(inputString) {
   return lengthCounts;
 }
 
+function wordSizes(inputString) { // added shorter alternative
+  let lengthCounts = {};
+
+  inputString
+  .split(" ")
+  .forEach(word => {
+    let len = cleanWordLength(word);
+ 
+    if (len === 0) { // IMPROVEMENT: slightly adjusted control flow with return statement to escape .forEach() callback when length is zero and avoid repeting length check
+      return;
+    } else {
+      lengthCounts[len] = (lengthCounts[len] || 0) + 1; // IMPROVEMENT: added shorter logic
+    }
+  });
+  
+  return lengthCounts;
+}
 
 
 // Examples:
