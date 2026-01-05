@@ -6,7 +6,7 @@ Words consist of any sequence of non-space characters.
 
 */
 
-function wordSizes(inputString) {
+function wordSizes2(inputString) {
   let wordLengthsArray = inputString.split(" ").map(element => element.length);
   let countOfLengths = {};
 
