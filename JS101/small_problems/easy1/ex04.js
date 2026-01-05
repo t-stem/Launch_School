@@ -13,7 +13,7 @@ let readline = require("readline-sync");
 const FEET_CONVERSION = 10.7639; // improvement: name const in all caps
 let length = Number(readline.question("Please enter length in meters: ")); // improvement: convert input strings to numbers right away -> mimic example given
 let width = Number(readline.question("Please enter width in meters: "));
-let areaSqM = width * length;
+let areaSqM = width * length; // improvement: added variables for area
 let areaSqFt = areaSqM * FEET_CONVERSION;
 
 

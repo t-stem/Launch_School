@@ -61,11 +61,11 @@ if (!(op === '+' || op === '*')) {
 }
 
 let output = 0;
-for (currentNumber = 1; currentNumber <= suppliedNumber; i += 1) {
+for (currentNumber = 1; currentNumber <= suppliedNumber; currentNumber += 1) {
   if (op == '+') {
     output += currentNumber;
   } else {
-    output === 0 ? output + 1 : output;
+    output = (output === 0 ? output + 1 : output);
     output *= currentNumber;
   }
 }

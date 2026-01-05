@@ -28,13 +28,13 @@ function centuryEnding(century) {
 
 function century (year) {  
     let moduloCentury = year % 100;
+    let quotientCentury = year / 100;
     if (moduloCentury === 0) {
-        return year / 100 + centuryEnding(year / 100);
+        return year / 100 + centuryEnding(quotientCentury);
     } else {
-        let truncCentury = Math.trunc(year / 100) + 1;
+        let truncCentury = Math.trunc(quotientCentury) + 1;
         return String(truncCentury) + centuryEnding(truncCentury);
     }
-
 
 }
 

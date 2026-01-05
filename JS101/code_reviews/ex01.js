@@ -16,8 +16,6 @@ while (i < 99) {
 CODE REVIEW:
 - Does the solution meet the problem requirements?
 It doesn't meet the problem requirement to up to 99 inclusive because the while loop starts at 1 and continues while i < 99, which means that it ends at 98 (i.e. 99 exclusive)
-The code identified odd numbers correctly and logs them to the console, but it doesn't accumulate the sum of them
-Finally, the program doesn't contain a return statement
 
 - Is the code readable and easy to understand?
 Yes, it is easy to understand. One suggestion would be to rewrite the last line as i += 1;
@@ -36,6 +34,7 @@ No
 
 - Would it make more sense to use different looping or conditional structures?
 A for loop might be more appropriate here since we're using an iterator to define how many times the loop will repeat itself
+e.g. for (number = 1; number < 100; number += 1)
 
 - Would the solution benefit from helper functions?
 No parts of the code are repeating themselves and there are no overly long functions, so this doesn't seem necessary.
