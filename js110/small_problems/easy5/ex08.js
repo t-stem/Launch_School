@@ -2,9 +2,9 @@
 Write a function that takes one argument, a positive integer, and returns a list of the digits in the number.
 */
 
-function digitList(inputNumber) {
+function digitList2(inputNumber) {
   const BASE = 10;
-  let outputArray = []
+  let outputArray = [];
   let currentNumber = inputNumber;
   
   do {
@@ -14,9 +14,16 @@ function digitList(inputNumber) {
     
     currentNumber = (currentNumber - currentDigit) / BASE;
   }
-  while (currentNumber > 0)
+  while (currentNumber > 0);
 
   return outputArray;
+}
+
+function digitList(inputNumber) { // alternative solution
+  let numberToString = String(inputNumber);
+
+  return [...numberToString];
+
 }
 
 
