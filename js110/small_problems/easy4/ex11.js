@@ -10,11 +10,35 @@ Number.prototype.toString, or an expression such as '' + number. Your function s
 */
 
 function integerToString (inputInteger) {
+  const DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']; // uses property of arrays that index numbers are of number type
+
+  let currentDigit;
+  let remainingInteger = inputInteger;
+  let numberString = '';
+
+  do {
+    if (inputInteger === 0) {
+      break;
+    }
+
+    currentDigit = remainingInteger % 10;
+    remainingInteger = (remainingInteger - currentDigit) / 10;
+
+    numberString = DIGITS[currentDigit] + numberString; // IMPROVEMENT: added exlicit manual conversion
+  }
+  while (remainingInteger >= 10)
+
+  return DIGITS[remainingInteger] + numberString;
+}
+
+
+
+function integerToStringOLD (inputInteger) {
   let currentDigit;
   let remainingInteger = inputInteger;
   let numberString = '';
   
-   while (remainingInteger > 10) {
+   while (remainingInteger >= 10) {
 
     currentDigit = remainingInteger % 10;
 
