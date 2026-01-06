@@ -9,26 +9,24 @@ even if there are duplicates in the original arrays. You may assume that both ar
 function union(array1, array2) {
   let newArray = array1.concat(array2);
 
-  newArray.sort((a, b) => a - b)
-
   let i = 0;
 
   while (i < newArray.length) {
 
-    let duplicateIndex = 0;
+    let duplicateIndex; // IMPROVEMENT: doesn't need to be initialized to zero
 
     do {
       duplicateIndex = newArray.indexOf(newArray[i], i + 1)
-      if (duplicateIndex != -1) {
+      if (duplicateIndex !== -1) { // Fix: used !== instead of !=
         newArray.splice(duplicateIndex, 1);
       }
     }
-    while (duplicateIndex !== -1) {
+    while (duplicateIndex !== -1) 
 
     i += 1;
-    
-    }
   }
 
   return newArray;
 }
+
+console.log(union([1, 3, 5], [3, 6, 9]));    // [1, 3, 5, 6, 9]
