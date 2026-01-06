@@ -4,7 +4,8 @@ of the values from the two.
 There should be no duplication of values in the returned array, 
 even if there are duplicates in the original arrays. You may assume that both arguments will always be arrays.
 
-*/
+revise/simplify
+*/ 
 
 function union(array1, array2) {
   let newArray = array1.concat(array2);
