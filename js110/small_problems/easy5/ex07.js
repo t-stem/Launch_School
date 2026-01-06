@@ -7,7 +7,7 @@ You may assume that the arguments contain the same number of elements.
 
 */
 
-function multiplyList(array1, array2) {
+function multiplyList2(array1, array2) {
   let newArray = [];
   
   for (let i = 0; i < array1.length; i += 1) {
@@ -17,5 +17,8 @@ function multiplyList(array1, array2) {
   return newArray;
 }
 
+function multiplyList(array1, array2) { // alternative solution
 
+  return array1.map((element, index) => element * array2[index]);
+}
 console.log(multiplyList([3, 5, 7], [9, 10, 11]));    // [27, 50, 77]
