@@ -10,14 +10,10 @@ function countOccurrences(inputArray) {
   let counts = {}
 
   for (let element of inputArray) {
-    if (counts[element]) {
-      counts[element] += 1;
-    } else {
-      counts[element] = 1
-    }
+    counts[element] = (counts[element] || 0) + 1; // IMPROVEMENT: shorter syntax instead of if else control flow
   }
   
-  for (key in counts) {
+  for (let key in counts) { // FIX: added let to declare key
     console.log(`${key} => ${counts[key]}`);
   }
 }
