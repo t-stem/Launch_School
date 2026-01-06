@@ -22,8 +22,11 @@ function digitList2(inputNumber) {
 function digitList(inputNumber) { // alternative solution
   let numberToString = String(inputNumber);
 
-  return [...numberToString];
+  let outputArray = numberToString
+  .split('')
+  .map(element => Number(element));
 
+  return outputArray;
 }
 
 
