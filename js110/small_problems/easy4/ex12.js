@@ -9,20 +9,16 @@ You may not use any of the standard conversion functions available in JavaScript
 You might also want to check the Math.sign() function.
 */
 
-
-function signedIntegerToString (signedInteger) {
-
+function integerToString (inputInteger) {
   const DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']; // uses property of arrays that index numbers are of number type
   let numberString = '';
 
-  const sign = Math.sign(signedInteger);
-  let remainingInteger = sign === 1 ? signedInteger : signedInteger * sign;
-  
-
-  if (signedInteger === 0) { // note: handled case for zero outside the loop
+  if (inputInteger === 0) { // note: handled case for zero outside the loop
     return '0';
   }
 
+  let remainingInteger = inputInteger;
+  
   do {
     let currentDigit = remainingInteger % 10;
     remainingInteger = (remainingInteger - currentDigit) / 10;
@@ -31,7 +27,20 @@ function signedIntegerToString (signedInteger) {
   }
   while(remainingInteger > 0) // note: improved by changing to shorter version that stops when remainingInteger > 0 rather than remainingInteger >= 10 in ex11, which was unnecessary
 
+  return numberString;
+}
 
+
+function signedIntegerToString (signedInteger) {
+  if (signedInteger === 0) {
+    return '0';
+  }
+  
+  const sign = Math.sign(signedInteger);
+  let unsignedInteger = sign === 1 ? signedInteger : signedInteger * sign;
+  
+  let numberString = integerToString(unsignedInteger);
+  
   return sign === 1 ? '+' + numberString :  '-' + numberString; // note: used short return statement using ternary operator
 }
 
