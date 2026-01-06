@@ -10,11 +10,43 @@ You may not use javascript's Date class methods.
 revisit
 */
 
-function toTwoDigits (integer) {
+function toTwoDigits(integer) {
   return integer < 10 ? '0' + String(integer) : String(integer);
 }
 
-function timeOfDay(minsFromMidnight) {
+function timeOfDay(minsFromMidnight) { // revised, streamlined version
+  const TOP_MIN = 60;
+  const TOP_HOUR = 24;
+  
+  const MINS_PER_HOUR = 60;
+  const HOURS_PER_DAY = 24;
+  const MINS_PER_DAY = MINS_PER_HOUR * HOURS_PER_DAY;
+
+  const normalizedMins = minsFromMidnight % MINS_PER_DAY; // normalized minsFromMidnight first, then calculated hours and mins
+
+  let minsFromTop = normalizedMins % MINS_PER_HOUR; // mins from the top
+  let mins = minsFromTop >= 0 ? minsFromTop : TOP_MIN + minsFromTop;
+
+  let hoursFromTop = Math.floor(normalizedMins / MINS_PER_HOUR);
+  let hours = hoursFromTop >= 0 ? hoursFromTop : TOP_HOUR + hoursFromTop;
+
+  return `${toTwoDigits(hours)}:${toTwoDigits(mins)}`;
+}
+
+console.log(timeOfDay(0) === "00:00");
+console.log(timeOfDay(-3) === "23:57");
+console.log(timeOfDay(35) === "00:35");
+console.log(timeOfDay(-1437) === "00:03");
+console.log(timeOfDay(3000) === "02:00");
+console.log(timeOfDay(800) === "13:20");
+console.log(timeOfDay(-4231) === "01:29");
+
+console.log(timeOfDay(-60));    // expect "23:00"
+console.log(timeOfDay(-1440));  // expect "00:00"
+console.log(timeOfDay(1440));   // expect "00:00"
+
+
+function timeOfDay2(minsFromMidnight) {
     const MINS_PER_HOUR = 60;
     const HOURS_PER_DAY = 24;
     const MINS_PER_DAY = MINS_PER_HOUR * HOURS_PER_DAY;
@@ -34,10 +66,3 @@ function timeOfDay(minsFromMidnight) {
 
 }
 
-console.log(timeOfDay(0) === "00:00");
-console.log(timeOfDay(-3) === "23:57");
-console.log(timeOfDay(35) === "00:35");
-console.log(timeOfDay(-1437) === "00:03");
-console.log(timeOfDay(3000) === "02:00");
-console.log(timeOfDay(800) === "13:20");
-console.log(timeOfDay(-4231) === "01:29");
