@@ -36,7 +36,7 @@ function stringToInteger(inputString) {
   return outputNumber;
 }
 
-function stringToSignedInteger (inputString) {
+function stringToSignedInteger2 (inputString) {
   let firstChar = inputString[0];
 
   if (firstChar === '-') {
@@ -49,6 +49,19 @@ function stringToSignedInteger (inputString) {
 
     return stringToInteger(inputString);
   }
+}
+
+function stringToSignedInteger (inputString) { // IMPROVEMENT: added shorter alternative with fewer repetitions
+  let firstChar = inputString[0]; 
+  let sign = 1;
+  
+  if (firstChar === "-") {
+    sign = -1;
+    inputString = inputString.slice(1);
+  } else if (firstChar === '+') {
+    inputString = inputString.slice(1);
+  }
+  return sign * stringToInteger(inputString);
 }
 
 
