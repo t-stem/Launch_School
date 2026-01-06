@@ -34,7 +34,14 @@ function afterMidnight(time) {
   return minsAfterMidnight % MINS_PER_DAY;
 }
 
-function beforeMidnight(time) {
+function beforeMidnight(time) { // added simplified version by building on afterMidnight() function 
+  let minsBeforeMidnight = MINS_PER_DAY - afterMidnight(time);
+
+  return minsBeforeMidnight % MINS_PER_DAY;
+}
+
+
+function beforeMidnight2(time) {
   let mins = extractMins(time);
   let hours = extractHours(time);
 
