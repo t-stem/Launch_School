@@ -5,10 +5,34 @@ Given an unordered array and the information that exactly one value in the array
 Write a function that will find and return the duplicate value that is in the array.
 */
 
-function findDup(inputArray) {
-  for (element of inputArray) {
+function findDup3(inputArray) { 
+  for (let element of inputArray) { // FIX: declare loop variable using let to keep its scope local
+
     if (inputArray.indexOf(element, inputArray.indexOf(element) + 1) !== -1)
       return element;
+  }
+}
+
+function findDup2(inputArray) { // revised version with slightly better readability
+  for (let element of inputArray) {
+    let firstOccurance = inputArray.indexOf(element);
+    let secondOccurance = inputArray.indexOf(element, firstOccurance + 1);
+
+    if (secondOccurance !== -1) {
+      return element;
+    }
+  }
+}
+
+function findDup(inputArray) { // added alternative approach
+  let seenElements = [];
+
+  for (let element of inputArray) {
+    if (!seenElements.includes(element)) {
+      seenElements.push(element);
+    } else {
+      return element;
+    }
   }
 }
 
