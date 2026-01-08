@@ -1,28 +1,22 @@
 function lengthValidConsonants(inputString) {
   const CONSONANTS = 'bcdfghjklmnpqrstvwxyz';
   let validConsontants = ''; // sequence of valid consonants
-  let finalChar = inputString.length - 1;
+  let finalCharIndex = inputString.length - 1;
 
-  for (charIndex = 0; charIndex <= finalChar; charIndex += 1) {
-    let char = inputString[charIndex];
+  for (let charIndex = 0; charIndex <= finalCharIndex; charIndex += 1) {
+    let currentChar = inputString[charIndex];
 
-    if (validConsontants === '' && charIndex === finalChar) {
-      break; // ensures that the function only returns values >= 2, even if final char is a consonant and penultimate char isn't
-    }
+    if (validConsontants === '' && charIndex === finalCharIndex) {break} // ensures that the function only returns values >= 2, even if final char is a consonant and penultimate char isn't
 
-    if (char === " ") {
-      continue; // ensures that spaces in the string are skipped
-    }
+    if (currentChar === " ") {continue} // ensures that spaces in the string are skipped by moving to the next iteration of the loop
 
-    if (CONSONANTS.includes(char)) {
-      validConsontants += char;
+    if (CONSONANTS.includes(currentChar)) {
+      validConsontants += currentChar;
 
     } else if (validConsontants.length < 2) {
       validConsontants = ''; // ensures that the sequence of valid consonants is reset when a vowel occurs and the sequence of valid consonants is insufficient in length (i.e. less than 2), so that the loop can continue to look for a valid sequence further down the string
 
-    } else {
-      break; // ensures that the loop breaks when the string of valid consonants that is sufficient in length has been found (based on the assumption that each string only contains at most one valid sequence)
-    }
+    } else {break}; // ensures that the loop breaks when a complete sequence of valid consonants that is sufficient in length has been found (based on the assumption that each string only contains at most one valid sequence)
   }
 
   return validConsontants.length;
@@ -37,8 +31,8 @@ console.log(validAdjacentConsonants('can'));
 
 function validConsonantsPerString(inputArray) {
   let consecutiveConsontantsPerString = {};
-  
-  for (string of inputArray) {
+
+  for (let string of inputArray) {
     consecutiveConsontantsPerString[string] = lengthValidConsonants(string);
   }
 
