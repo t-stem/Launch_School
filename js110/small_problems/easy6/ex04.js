@@ -7,7 +7,7 @@ You may assume that the argument will always be a positive integer.
 function sequence(inputInteger) {
   let integerArray = [];
 
-  for (i = 1; i <= inputInteger; i += 1) {
+  for (let i = 1; i <= inputInteger; i += 1) { // FIX: declare i using let
     integerArray.push(i);
   }
 
