@@ -6,15 +6,16 @@ You may not use Array.prototype.reverse().
 
 function reverse(inputArray) {
   const LENGTH = inputArray.length;
+  const LAST_INDEX = LENGTH - 1;
   const BOUNDARY = LENGTH % 2 === 0 ? LENGTH / 2 : Math.ceil(LENGTH / 2);
 
   for (let i = 0; i < BOUNDARY; i += 1) {
     let firstValue = inputArray[i];
-    let lastValue = inputArray[LENGTH - 1];
+    let lastValue = inputArray[LAST_INDEX - i];
     inputArray[i] = lastValue;
-    inputArray[LENGTH - 1] = firstValue;
+    inputArray[LAST_INDEX - i] = firstValue;
   }
-  
+
   return inputArray;
 }
 
