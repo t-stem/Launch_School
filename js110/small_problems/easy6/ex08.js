@@ -21,7 +21,7 @@ The string argument will consist of only letters and spaces. Words will be separ
 function reverseWords(inputString) {
   let wordsArray = inputString.split(" ");
 
-  for (index = 0; index < wordsArray.length; index += 1) {
+  for (let index = 0; index < wordsArray.length; index += 1) { // FIX: added let to declaration of index
     if (wordsArray[index].length >= 5) {
       wordsArray[index] = wordsArray[index]
       .split("")
@@ -30,7 +30,7 @@ function reverseWords(inputString) {
     }
   }
 
-  return wordsArray.join(" ");
+  return wordsArray.join(" "); // FIX: added .join() method to correctly returns string rather than array words
 }
 
 // Test cases
