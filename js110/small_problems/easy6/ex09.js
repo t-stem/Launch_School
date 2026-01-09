@@ -4,7 +4,7 @@ Write a function that takes an Array as an argument and reverses its elements in
 You may not use Array.prototype.reverse().
 */
 
-function reverse(inputArray) {
+function reverse2(inputArray) {
   const LENGTH = inputArray.length;
   const LAST_INDEX = LENGTH - 1;
   const BOUNDARY = LENGTH % 2 === 0 ? LENGTH / 2 : Math.ceil(LENGTH / 2);
@@ -14,6 +14,19 @@ function reverse(inputArray) {
     let lastValue = inputArray[LAST_INDEX - i];
     inputArray[i] = lastValue;
     inputArray[LAST_INDEX - i] = firstValue;
+  }
+
+  return inputArray;
+}
+
+
+function reverse(inputArray) { // alternative solution
+  const LENGTH = inputArray.length;
+  const LAST_INDEX = LENGTH - 1;
+  const BOUNDARY = Math.floor(LENGTH / 2); // Note: can use Math.floor here. In arrays of even length this loops over the first half of the array, and in arrays of odd lengths it loops over the values up to the middle value (exclusive), which doesn't need to be swapped anyway
+
+  for (let i = 0; i < BOUNDARY; i += 1) {
+    [inputArray[i], inputArray[LAST_INDEX - i]] = [inputArray[LAST_INDEX - i], inputArray[i]]; // Note: using destructured syntax to swap values
   }
 
   return inputArray;
