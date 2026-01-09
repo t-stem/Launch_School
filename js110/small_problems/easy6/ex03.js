@@ -4,7 +4,7 @@ Write a function that takes a positive integer as an argument and returns that n
 
 const BASE = 10;
 
-function moduloBASE(inputNumber) {
+function lastDigit(inputNumber) {
   return inputNumber % BASE;
 
 }
@@ -15,8 +15,8 @@ function magnitude(inputNumber) {
   let currentNumber = inputNumber;
   let exponent = 0;
   
-  while (moduloBASE(currentNumber) !== currentNumber) {
-    let currentDigit = moduloBASE(currentNumber);
+  while (lastDigit(currentNumber) !== currentNumber) {
+    let currentDigit = lastDigit(currentNumber);
     currentNumber = (currentNumber - currentDigit) / BASE;
     exponent += 1;
   }
@@ -27,12 +27,12 @@ function magnitude(inputNumber) {
 // console.log(powerOfBASE(12345));
 
 
-function reverseNumber(inputNumber) {
+function reverseNumber2(inputNumber) {
   let currentNumber = inputNumber;
   let reversedNumber = 0;
 
   for (let i = magnitude(inputNumber); currentNumber > 0; i -= 1) {
-    let currentDigit = moduloBASE(currentNumber);
+    let currentDigit = lastDigit(currentNumber);
 
     reversedNumber += currentDigit * (BASE ** i);
 
@@ -42,6 +42,19 @@ function reverseNumber(inputNumber) {
   return reversedNumber;
 }
 
+function reverseNumber(inputNumber) { // alternative solution that doesn't require magnitude helper
+  let currentNumber = inputNumber;
+  let reversedNumber = 0;
+
+  while (currentNumber > 0) {
+    let currentDigit = lastDigit(currentNumber);
+
+    reversedNumber = reversedNumber * 10 + currentDigit;
+    currentNumber = (currentNumber - currentDigit) / 10;
+  }
+
+  return reversedNumber
+}
 
 console.log(reverseNumber(12345));    // 54321
 console.log(reverseNumber(12213));    // 31221
