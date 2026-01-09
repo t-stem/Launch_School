@@ -30,7 +30,7 @@ function reverseWords(inputString) {
     }
   }
 
-  return wordsArray;
+  return wordsArray.join(" ");
 }
 
 // Test cases
