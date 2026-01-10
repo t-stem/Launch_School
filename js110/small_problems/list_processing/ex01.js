@@ -18,7 +18,7 @@ function digitsToArray(inputInteger) { // alternative solution using loops
   
   while (currentInteger > 0) {
     let currentDigit = currentInteger % BASE;
-    digitsArray.push(currentDigit);
+    digitsArray.unshift(currentDigit);
 
     currentInteger = (currentInteger - currentDigit) / BASE;
   }
