@@ -13,17 +13,21 @@ For the purpose of this exercise, you should consider all characters and pay att
 
 */
 
-function isPalindrome(inputString) {
+function isPalindrome1(inputString) {
   if (inputString.length <= 1) {
     return false;
   }
 
   let lowerBoundary = Math.floor(inputString.length / 2);
-  let upperBoundary = Math.ceil(inputString.length / 2)
+  let upperBoundary = Math.ceil(inputString.length / 2);
   let firstHalf = inputString.slice(0, lowerBoundary);
   let reversedSecondHalf = inputString.slice(upperBoundary).split("").reverse().join("");
 
   return firstHalf === reversedSecondHalf;
+}
+
+function isPalindrome(inputString) { // IMPROVEMENT: added simplified version
+  return inputString.length > 1 && inputString === inputString.split("").reverse().join("");
 }
 
 /* test cases isPalindrome()
