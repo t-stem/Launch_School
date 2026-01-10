@@ -10,7 +10,7 @@ function leadingSubstrings1(inputString) {
   let substrings = [];
   let currentString = '';
 
-  for (i = 0; i < inputString.length; i += 1) {
+  for (let i = 0; i < inputString.length; i += 1) { // FIX: declare i using let
     currentString = currentString + inputString[i];
     substrings.push(currentString);
   }
