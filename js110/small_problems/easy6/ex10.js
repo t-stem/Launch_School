@@ -28,8 +28,14 @@ function pairedParentheses2(inputString) { // DEPRECATED: this function doesn't 
     }
   }
   
-  return leftCounter === rightCounter;
+  return openCounter === closeCounter;
 }
+
+/* 
+Learning points:
+You reset openCounter and closeCounter to 0 on every outer loop iteration, so you’re only comparing runs/groups of consecutive ( and ), not the whole string.
+Even if fixed, this approach doesn’t handle nested patterns like "(())", where the notion of “groups” doesn’t directly match balanced structure.
+*/
 
 function pairedParentheses3(inputString) { // DEPRECATED: this function doesn't return the desired result
   const OPEN = '(';
@@ -53,6 +59,13 @@ function pairedParentheses3(inputString) { // DEPRECATED: this function doesn't 
   
   return true;
 }
+
+/* Learning points:
+ou were trying to reason with indexOf / lastIndexOf to shrink the string from the outside in, which is an interesting idea. A couple of issues:
+
+newString never actually changes based on itself; you do newString = inputString.slice(...) instead of newString = newString.slice(...). That means you’ll always slice the original string, so the loop doesn’t really progress as intended.
+The logic around first/last open/close is quite hard to reason about and doesn’t map as directly to “balanced” as the counter method.
+*/
 
 function pairedParentheses(inputString) {
   let balancedCounter = 0;
