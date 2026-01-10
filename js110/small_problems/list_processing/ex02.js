@@ -3,6 +3,8 @@ Write a function that takes an array of integers between 0 and 19 and returns an
 sorted based on the English word for each number:
 */
 
+// check feedback
+
 function alphabeticNumberSort(numbersArray) {
   const lookup = ['zero', 'one', 'two', 'three', 'four', 'five', 'six',
   'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 
