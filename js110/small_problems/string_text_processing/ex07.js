@@ -6,9 +6,9 @@ The non-alphabetic characters should still be included in the return value;
 they just don't count when toggling the desired case.
 */
 
-function staggeredCase(inputString) { // more reliable logic for odd length strings
+function staggeredCase1(inputString) { // more reliable logic for odd length strings
   let newString = '';
-  let upperLower = 1;
+  let upperLower = 1; 
   
   for (let char of inputString) {
     if (char.match(/[^a-z]/i)) {
@@ -22,6 +22,23 @@ function staggeredCase(inputString) { // more reliable logic for odd length stri
     }
   }
 
+  return newString;
+}
+
+
+function staggeredCase(inputString) { // revised version
+  let newString = '';
+  let needUpper = true; // changed to boolean for more reliable behavior
+  
+  for (let currentChar of inputString) {
+    if (/[^a-z]/i.test(currentChar)) { // used test, which returns a boolean
+      newString += currentChar;
+    } else { 
+      newString += needUpper ? currentChar.toUpperCase() : currentChar.toLowerCase(); // shortened logic by using ternary operator
+      needUpper = !needUpper;
+    }
+  }
+  
   return newString;
 }
 
