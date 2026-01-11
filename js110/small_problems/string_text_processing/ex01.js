@@ -3,17 +3,23 @@
   false otherwise. Ignore characters that are not alphabetic.
 */
 
-function isUppercase(inputString) {
-  const UPPER_CASE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  let santizedString = inputString.replace(/[^a-z]/gi, "");
+function isUppercase2(inputString) {
+  const UPPER_CASE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let sanitizedString = inputString.replace(/[^a-z]/gi, "");
 
-  for (let char of santizedString) {
+  for (let char of sanitizedString) {
     if (!UPPER_CASE.includes(char)) {
       return false;
     }
   }
 
   return true;
+}
+
+function isUppercase(inputString) { // alternative shorter version
+  let sanitizedString = inputString.replace(/[^a-z]/gi, "");
+
+  return sanitizedString === sanitizedString.toUpperCase();
 }
 
 // Test cases
