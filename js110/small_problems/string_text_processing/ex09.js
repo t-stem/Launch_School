@@ -12,7 +12,7 @@ function searchWord (searchTerm, text) {
   return text
   .replace(/\s+/g, " ") // account for multiple spaces between words
   .split(" ")
-  .map(word => word.replace(/[^a-z]/gi, "")) // remove punctuation at the end of words
+  .map(word => word[word.length - 1].replace(/[^a-z]/gi, "")) // remove punctuation at the end of words
   .filter(word => word.toLowerCase() === searchTerm.toLowerCase()) // case-insensitive filtering
   .length;
 }
