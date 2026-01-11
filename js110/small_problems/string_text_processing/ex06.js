@@ -8,16 +8,30 @@ Non-alphabetic characters should not be changed, but should be counted as charac
 when to switch between upper and lower case.
 */
 
-function staggeredCase(inputString) {
+function staggeredCase2(inputString) {
   let stringArray = inputString.split('');
-  let penultimateChar = stringArray.length - 1;
+  let penultimateIndex = stringArray.length - 1;
 
-  for (let i = 0; i < penultimateChar; i += 2) {
+  for (let i = 0; i < penultimateIndex; i += 2) {
     stringArray[i] = stringArray[i].toUpperCase();
-    stringArray[i+1] = stringArray[i+1].toLowerCase();
+    if (stringArray[i]){
+      stringArray[i+1] = stringArray[i+1].toLowerCase();
+    }
   }
 
   return stringArray.join('');
+}
+
+function staggeredCase(inputString) { // more reliable logic for odd length strings
+  let newString = '';
+  for (let i = 0; i < inputString.length; i += 1) {
+    if (i % 2 === 0) {
+      newString += inputString[i].toUpperCase();
+    } else {
+      newString += inputString[i].toLowerCase();
+    }
+  }
+  return newString;
 }
 
 // Test cases
