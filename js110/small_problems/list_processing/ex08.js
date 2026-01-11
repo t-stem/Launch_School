@@ -7,7 +7,7 @@ In the example below, we want to buy 3 apples, 1 orange, and 2 bananas.
 Thus, we return an array that contains 3 apples, 1 orange, and 2 bananas.
 */
 
-function buyFruit(groceryList) {
+function buyFruit2(groceryList) {
   let itemizedList = [];
 
   groceryList.forEach(item => {
@@ -19,6 +19,31 @@ function buyFruit(groceryList) {
   return itemizedList;
 }
 
+function buyFruit1(groceryList) { // IMPROVEMENT: with destructuring
+  let itemizedList = [];
+
+  groceryList.forEach(([item, quantity]) => {
+    for (let i = 0; i < quantity; i += 1) {
+      itemizedList.push(item);
+    }
+  })
+
+  return itemizedList;
+}
+
+function repeat(item, quantity) {
+  let repeatedItem = [];
+  for (let i = 0; i < quantity; i += 1) {
+    repeatedItem.push(item);
+  }
+  return repeatedItem;
+}
+
+function buyFruit(groceryList) {
+  return groceryList
+  .map(([item, quantity]) => repeat(item, quantity))
+  .reduce((combinedArray, subArray) => combinedArray.concat(subArray), []);
+}
 
 console.log(buyFruit([['apple', 3], ['orange', 1], ['banana', 2]]));
 // returns ["apple", "apple", "apple", "orange", "banana", "banana"]
