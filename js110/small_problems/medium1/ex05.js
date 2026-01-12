@@ -3,14 +3,21 @@ Write a function that takes a sentence string as an argument and returns that st
 a "number word" — 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine' — converted to its corresponding digit character.
 */
 
+function splitPunctuation(word) {
+  let splitWord = word.replace(/[^a-z]/gi, ""); 
+  return [splitWord, word.replace(splitWord, "")]; 
+}
+
 function wordToDigit(inputString) {
   const numberStrings = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
 
   return inputString
   .split(" ")
   .map(word => {
-    if (numberStrings.includes(word)) {
-      return numberStrings.indexOf(word);
+    let [splitWord, punctuation] = splitPunctuation(word);
+    let normalizedWord = splitWord.toLowerCase();
+    if (numberStrings.includes(normalizedWord)) {
+      return numberStrings.indexOf(normalizedWord) + punctuation;
     } else {
       return word;
     }
