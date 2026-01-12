@@ -9,7 +9,7 @@ Review the test cases below, then implement the solution accordingly.
 
 */
 
-function rotateArray(input) {
+function rotateArray2(input) {
   if (!Array.isArray(input)) {
     return undefined;
   } else if (input.length === 0) {
@@ -21,6 +21,17 @@ function rotateArray(input) {
   }
 }
 
+function rotateArray(input) {
+  if (!Array.isArray(input)) {
+    return undefined;
+  }
+
+  if (input.length === 0) {
+    return [];
+  }
+
+  return input.slice(1).concat(input[0]);
+}
 
 console.log(rotateArray([7, 3, 5, 2, 9, 1]));       // [3, 5, 2, 9, 1, 7]
 console.log(rotateArray(['a', 'b', 'c']));          // ["b", "c", "a"]
