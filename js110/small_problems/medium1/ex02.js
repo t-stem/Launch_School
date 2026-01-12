@@ -10,7 +10,7 @@ function rotateRightmostDigits(inputNumber, digitCount) {
   let stringLength = numberToString.length;
   let rightmostDigits = numberToString.slice(stringLength - digitCount);
   let rotatedDigits = rightmostDigits.slice(1).concat(rightmostDigits[0]);
-  let newString = numberToString.replace(rightmostDigits, rotatedDigits);
+  let newString = numberToString.slice(0, -digitCount).concat(rotatedDigits); // original solution with .replace() always replaces the first occurence of the substring, not which may not be the latt few digits. 
 
   return Number(newString);
 }
