@@ -1,57 +1,61 @@
-let stack = [];
-let register = 0;
+function minilang(programString) { // moved stack, register and helper functions inside minilang scope, to ensure that stack and register are reset with every minilang call
+  let stack = [];
+  let register = 0;
 
-function n(integer) {
-  register = integer;
-}
+  function n(integer) {
+    register = integer;
+  }
 
-function push() {
-  stack.push(register);
-}
+  function push() {
+    stack.push(register);
+  }
 
-function add() {
-  register += stack.pop();
-}
+  function add() {
+    register += stack.pop();
+  }
 
-function sub() {
-  register -= stack.pop();
-}
+  function sub() {
+    register -= stack.pop();
+  }
 
-function mult() {
-  register *= stack.pop();
-}
+  function mult() {
+    register *= stack.pop();
+  }
 
-function div() {
-  register = Math.trunc(register / stack.pop());
-}
+  function div() {
+    register = Math.trunc(register / stack.pop());
+  }
 
-function remainder() {
-  register %= stack.pop();
-}
+  function remainder() {
+    register %= stack.pop();
+  }
 
-function pop() {
-  register = stack.pop();
-}
+  function pop() {
+    register = stack.pop();
+  }
 
-function print() {
-  console.log(register);
-}
+  function print() {
+    console.log(register);
+  }
 
-const TOKENS = Object.freeze({
-  'PUSH': push,
-  'ADD': add,
-  'SUB': sub,
-  'MULT': mult,
-  'DIV': div,
-  'REMAINDER': remainder,
-  'POP': pop,
-  'PRINT': print
-});
+  function isIntegerOperation(operation) {
+    return !Number.isNaN(Number(operation));
+  }
 
-function minilang(programString) {
+  const TOKENS = Object.freeze({
+    'PUSH': push,
+    'ADD': add,
+    'SUB': sub,
+    'MULT': mult,
+    'DIV': div,
+    'REMAINDER': remainder,
+    'POP': pop,
+    'PRINT': print
+  });
+
   programString
   .split(" ")
-  .forEach(operation => Number(operation) ? n(Number(operation)) : TOKENS[operation]());  
+  .forEach(operation => isIntegerOperation(operation) ? n(Number(operation)) : TOKENS[operation]()); // don't rely on the truthiness of Number(operation), since '0' will evaluate to a falsy value 0
 }
 
 // Test cases:
