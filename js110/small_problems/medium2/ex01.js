@@ -15,8 +15,7 @@ function percentageString(part, total) {
 function letterPercentages(inputString) {
   let length = inputString.length;
 
-  let neitherCount = inputString
-    .match(/[^a-z]/gi)
+  let neitherCount = (inputString.match(/[^a-z]/gi) || []) // IMPROVEMENT: added || since .match() returns null if no matches are found, which would cause a type error when getting .length
     .length;
 
   let abcArray = inputString.replace(/[^a-z]/gi, '').split('');
