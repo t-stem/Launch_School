@@ -9,9 +9,11 @@ Memoization is an approach that involves saving a computed answer for future reu
 In the case of our recursive fibonacci function, using memoization saves calls to fibonacci(nth - 2) because the necessary values have already been computed by the recursive calls to fibonacci(nth - 1).
 
 For this exercise, your objective is to refactor the recursive fibonacci function to use memoization.
+
+review
 */
 
-function fibonacciSequence(inputNumber) {
+function fibonacci(inputNumber) {
   let sequence = [null, 1, 1];
   
   function checkSequence(number) {
@@ -20,13 +22,13 @@ function fibonacciSequence(inputNumber) {
 
     } else {
       let fib = fibonacci(number);
-      sequence.push(fib);
+      sequence[number] = fib; // IMPROVEMENT: reworked from sequence.push() to make it explicity that the correct number is stored at the correct index
       
       return fib;
     }
   }
 
-  function fibonacci(n) {
+  function fibonacciNth(n) {
     if (n > 2) {
       let fib1 = checkSequence(n - 1);
       let fib2 = checkSequence(n - 2);
@@ -37,7 +39,7 @@ function fibonacciSequence(inputNumber) {
     return 1;
   }
 
-  return fibonacci(inputNumber);
+  return fibonacciNth(inputNumber);
 }
 
 console.log(fibonacciSequence(1));       // 1
