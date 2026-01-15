@@ -13,7 +13,7 @@ You may assume that all angles have integer values, so you do not have to worry 
 */
 
 function triangle(angle1, angle2, angle3) {
-  [smallest, middle, largest] = [angle1, angle2, angle3].sort((a, b) => a - b);
+ const [smallest, middle, largest] = [angle1, angle2, angle3].sort((a, b) => a - b); // added const to prevent variables in destructured array from becoming global
 
   if (smallest <= 0) return 'invalid';
 
