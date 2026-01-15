@@ -11,15 +11,15 @@ In the case of our recursive fibonacci function, using memoization saves calls t
 For this exercise, your objective is to refactor the recursive fibonacci function to use memoization.
 */
 
-function fibonacciSequence(n) {
+function fibonacciSequence(inputNumber) {
   let sequence = [null, 1, 1];
   
-  function checkSequence(N) {
-    if (sequence[N]){
-      return sequence[N];
+  function checkSequence(number) {
+    if (sequence[number]){
+      return sequence[number];
 
     } else {
-      let fib = fibonacci(N);
+      let fib = fibonacci(number);
       sequence.push(fib);
       
       return fib;
@@ -37,7 +37,7 @@ function fibonacciSequence(n) {
     return 1;
   }
 
-  return fibonacci(n);
+  return fibonacci(inputNumber);
 }
 
 console.log(fibonacciSequence(1));       // 1
