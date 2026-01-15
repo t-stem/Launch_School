@@ -40,6 +40,9 @@ const dividerRow = [hor5, connector, hor5, connector, hor5].join('');
 const VALID_AFFIRMATIVES = Object.freeze(['yes', 'y']);
 const VALID_NEGATIVES = Object.freeze(['no', 'n']);
 const GAME_MODES = Object.freeze({singles: 'singles', match: 'match'});
+const PRIORITY_MOVE = '5';
+const FIRST_MOVER_VALUES = Object.freeze({choose: 'choose', computer: 'computer', player: 'player'});
+const FIRST_MOVER = FIRST_MOVER_VALUES['choose']; // select 'choose', 'player', or 'computer'
 
 function prompt(text) {
   console.log(`>>> ${text}`);
@@ -63,6 +66,22 @@ function joinOr(inputArray, mainDelimiter = ',', finalDelimiter = 'or') {
   let lastCharIndex = length - 1;
   return inputArray.slice(0, lastCharIndex).join(mainDelimiter) +
   finalDelimiter + inputArray.slice(lastCharIndex);
+}
+
+function getYesNo() {
+  while (true) {
+    let userInput = readlineSync
+      .question(`Please enter ${quote(VALID_AFFIRMATIVES[0])} or ${quote(VALID_NEGATIVES[0])}: `)
+      .toLowerCase();
+
+    if (VALID_NEGATIVES.includes(userInput)) {
+      return VALID_NEGATIVES[0];
+    } else if (VALID_AFFIRMATIVES.includes(userInput)) {
+      return VALID_AFFIRMATIVES[0];
+    } else {
+      prompt(`Your input is not valid. Valid input includes ${joinOr(VALID_AFFIRMATIVES.concat(VALID_NEGATIVES).map(input => quote(input)), ',', 'and')}.`);
+    }
+  }
 }
 
 function initializeGame() {
@@ -100,16 +119,8 @@ function isAvailableSquare(inputSquare, currentSquaresState) {
   return available.includes(inputSquare);
 }
 
-function isValidInput(input) {
+function isValidInputSquare(input) {
   return Object.keys(SQUARES_STATE_DEFAULT).includes(input);
-}
-
-function invalidInput() {
-  prompt(`Your input is not valid. Valid inputs include the following values: ${joinOr(Object.keys(SQUARES_STATE_DEFAULT))}.`);
-}
-
-function unavailableChoice() {
-  prompt('The square you picked has already been taken.');
 }
 
 function playerChooses(currentSquaresState) {
@@ -118,64 +129,88 @@ function playerChooses(currentSquaresState) {
   do {
     prompt(`It's your turn. Please choose from available squares ${joinOr(availableSquares(currentSquaresState))}.`);
     chosenSquare = readlineSync.question('Enter your choice here: ');
-    if (!isValidInput(chosenSquare)) {
-      invalidInput();
+
+    if (!isValidInputSquare(chosenSquare)) {
+      prompt(`Your input is not valid. Valid inputs include the following values: ${joinOr(Object.keys(SQUARES_STATE_DEFAULT))}.`);
     } else if (!isAvailableSquare(chosenSquare, currentSquaresState)) {
-      unavailableChoice();
+      prompt('The square you picked has already been taken.');
     }
-  }
-  while (!isAvailableSquare(chosenSquare, currentSquaresState) ||
-  !isValidInput(chosenSquare));
+  } while (!isAvailableSquare(chosenSquare, currentSquaresState) ||
+  !isValidInputSquare(chosenSquare));
 
   return chosenSquare;
 }
 
-function countPlayerSquares(squaresArray) {
-  let counter = 0
+function countContestantSquares(squaresArray, contestant) {
+  let counter = 0;
   squaresArray.forEach(square => {
-    if (square === SQUARE_MARKERS['player']) {
+    if (square === SQUARE_MARKERS[contestant]) {
       counter += 1;
     }
   });
   return counter;
 }
 
+function getScenarioState(inputScenario, currentSquaresState) {
+  let requiredSquare1 = inputScenario[0];
+  let requiredSquare2 = inputScenario[1];
+  let requiredSquare3 = inputScenario[2];
+
+  return [
+    currentSquaresState[requiredSquare1],
+    currentSquaresState[requiredSquare2],
+    currentSquaresState[requiredSquare3]
+  ];
+}
+
 function selectBlockingMove(adjacentSquares) {
-  console.log('Opponent is selecting a blocking move.')
   for (let square of adjacentSquares) {
     if (square !== SQUARE_MARKERS['player']) return square;
   }
   return '';
 }
 
-function isImmediateThreatToComputer(currentSquaresState) {
+function shouldComputerBlock(currentSquaresState) {
   for (let scenario of WINNING_SCENARIOS) {
-    let requiredSquare1 = scenario[0];
-    let requiredSquare2 = scenario[1];
-    let requiredSquare3 = scenario[2];
-    
-    let requiredSquares = [
-      currentSquaresState[requiredSquare1],
-      currentSquaresState[requiredSquare2],
-      currentSquaresState[requiredSquare3]
-    ];
+    let requiredSquares = getScenarioState(scenario, currentSquaresState);
+
     if (requiredSquares.includes(SQUARE_MARKERS['computer'])) continue; // if the computer has already claimed one of the squares in the winning scenario under evaluation, the player can never win using this scenario and the scenario is not a threat to the computer.
-    if (countPlayerSquares(requiredSquares) === 2) return selectBlockingMove(requiredSquares, currentSquaresState);
+    if (countContestantSquares(requiredSquares, 'player') === 2) return selectBlockingMove(requiredSquares);
+  }
+
+  return '';
+}
+
+function selectWinningMove(adjacentSquares) {
+  for (let square of adjacentSquares) {
+    if (square !== SQUARE_MARKERS['computer']) return square;
+  }
+
+  return '';
+}
+
+function canComputerWin(currentSquaresState) {
+  for (let scenario of WINNING_SCENARIOS) {
+    let requiredSquares = getScenarioState(scenario, currentSquaresState);
+
+    if (requiredSquares.includes(SQUARE_MARKERS['player'])) continue;
+    if (countContestantSquares(requiredSquares, 'computer') === 2) return selectWinningMove(requiredSquares);
   }
 
   return '';
 }
 
 function computerChooses(currentSquaresState) {
-  let immediateThreat = isImmediateThreatToComputer(currentSquaresState);
+  let canWin = canComputerWin(currentSquaresState);
+  if (canWin) return canWin;
 
-  if (immediateThreat) {
-    return immediateThreat;
-  }
+  let shouldBlock = shouldComputerBlock(currentSquaresState);
+  if (shouldBlock) return shouldBlock;
 
   let optionsArray = availableSquares(currentSquaresState);
-  let optionIndex = Math.floor(Math.random() * optionsArray.length);
+  if (optionsArray.includes(PRIORITY_MOVE)) return PRIORITY_MOVE;
 
+  let optionIndex = Math.floor(Math.random() * optionsArray.length);
   return optionsArray[optionIndex];
 }
 
@@ -191,7 +226,7 @@ function markSquare(choiceFunction, currentSquaresState) {
   }
 }
 
-function executeTurn(currentSquaresState) {
+function executeTurn(currentSquaresState, computerPriority) {
   let completedPlayerTurns = Object.values(currentSquaresState)
     .filter(square => square === SQUARE_MARKERS['player'])
     .length;
@@ -200,7 +235,11 @@ function executeTurn(currentSquaresState) {
     .filter(square => square === SQUARE_MARKERS['computer'])
     .length;
 
-  if (completedPlayerTurns > completedComputerTurns) { // player always gets to go first
+  let computerFirst = computerPriority ?
+    (completedPlayerTurns >= completedComputerTurns) :
+    (completedPlayerTurns > completedComputerTurns); // if one contestant has completed fewer terms, they always get a turn. If both constants have completed an equal number of turns, the truthiness of computerPriority determines which one goes first.
+
+  if (computerFirst) {
     markSquare(computerChooses, currentSquaresState);
   } else {
     displayBoard(currentSquaresState);
@@ -212,15 +251,17 @@ function isBoardFull(currentSquaresState) {
   return availableSquares(currentSquaresState).length === 0;
 }
 
-function determineOutcome(currentSquaresState) {
+function determineGame(currentSquaresState) {
   for (let scenario of WINNING_SCENARIOS) {
     let requiredSquare1 = scenario[0];
     let requiredSquare2 = scenario[1];
     let requiredSquare3 = scenario[2];
+    let markSquare1 = currentSquaresState[requiredSquare1];
+    let markSquare2 = currentSquaresState[requiredSquare2];
+    let markSquare3 = currentSquaresState[requiredSquare3];
 
-    if (currentSquaresState[requiredSquare1] === currentSquaresState[requiredSquare2] &&
-      currentSquaresState[requiredSquare2] === currentSquaresState[requiredSquare3]) { // winning condtion: if all three squares specified in the scenario criteria are claimed by the same player
-      return currentSquaresState[requiredSquare1]; // return the marking of the player who has claimed the winning squares
+    if (markSquare1 === markSquare2 && markSquare2 === markSquare3) { // winning condtion: if all three squares specified in the scenario criteria are claimed by the same player
+      return markSquare1; // return the mark of the player who has claimed the winning squares
     }
   }
 
@@ -247,14 +288,35 @@ function displayOutcome(outcome) {
   }
 }
 
+function hasComputerPriority() {
+  switch (FIRST_MOVER) {
+    case FIRST_MOVER_VALUES['computer']:
+      return true;
+    case FIRST_MOVER_VALUES['player']:
+      return false;
+    case FIRST_MOVER_VALUES['choose']: {
+      prompt('Would you like to go first?');
+
+      let playerPriority = (getYesNo() === VALID_AFFIRMATIVES[0]);
+      let computerPriority = !playerPriority;
+
+      return computerPriority;
+    }
+    default:
+      return false;
+  }
+}
+
 function runGame() {
   const gameState = initializeGame();
   let outcome;
-  prompt(`Welcome to this game! You will be playing as ${SQUARE_MARKERS['player']} and your opponent will be playing as ${SQUARE_MARKERS['computer']}.`)
+  prompt(`Welcome to this game! You will be playing as ${SQUARE_MARKERS['player']} and your opponent will be playing as ${SQUARE_MARKERS['computer']}.`);
+
+  let computerPriority = hasComputerPriority();
 
   do {
-    executeTurn(gameState);
-    outcome = determineOutcome(gameState);
+    executeTurn(gameState, computerPriority);
+    outcome = determineGame(gameState);
   }
   while (!outcome);
 
@@ -284,56 +346,53 @@ function matchOrSingle() {
   return selectedMode;
 }
 
-function startNextGame() {
-  prompt("Would you like to start a new game?");
-
-  while (true) {
-    let userInput = readlineSync
-      .question(`Please enter ${quote(VALID_AFFIRMATIVES[0])} or ${quote(VALID_NEGATIVES[0])}: `)
-      .toLowerCase();
-
-    if (VALID_NEGATIVES.includes(userInput)) {
-      return false;
-    } else if (VALID_AFFIRMATIVES.includes(userInput)) {
-      return true;
-    } else {
-      prompt(`Your input is not valid. Valid input includes ${joinOr(VALID_AFFIRMATIVES.concat(VALID_NEGATIVES).map(input => quote(input)), ',', 'and')}.`);
-    }
-  }
-}
-
 function displayScores(scores) {
   prompt(`Your score: ${scores['player']}.`);
   prompt(`Opponent's score: ${scores['computer']}.`);
 }
 
+function updateScores(gameOutcome, scoresObj) {
+  switch (gameOutcome)  {
+    case OUTCOMES['player']:
+      scoresObj['player'] += 1;
+      break;
+    case OUTCOMES['computer']:
+      scoresObj['computer'] += 1;
+      break;
+  }
+}
+
+function determineMatch(scoresObj) {
+  let outcome = '';
+
+  if (scoresObj['player'] === WIN_MATCH_SCORE) {
+    outcome = OUTCOMES['player'];
+  } else if (scoresObj['computer'] === WIN_MATCH_SCORE) {
+    outcome = OUTCOMES['computer'];
+  }
+
+  return outcome;
+}
+
 function runMatch() {
-  prompt('Starting a match...')
+  prompt('Starting a match...');
   let scores = {player: 0, computer: 0};
   let matchOutcome = '';
-  
-  while (scores['player'] < WIN_MATCH_SCORE && scores['computer'] < WIN_MATCH_SCORE) {
+
+  while (!matchOutcome) {
     displayScores(scores);
-    prompt(`Starting a new game...`)
-    
+    prompt(`Starting a new game...`);
+
     let gameOutcome = runGame();
-    if (gameOutcome === OUTCOMES['player']) {
-      scores['player'] += 1;
-    } else if (gameOutcome === OUTCOMES['computer']){
-      scores['computer'] += 1;
-    }
+    updateScores(gameOutcome, scores);
+
+    matchOutcome = determineMatch(scores);
   }
-  
-  if (scores['player'] === WIN_MATCH_SCORE) {
-    matchOutcome = OUTCOMES['player'];
-  }
-  else if (scores['computer'] === WIN_MATCH_SCORE) {
-    matchOutcome = OUTCOMES['computer'];
-  }
-  
-  displayScores(scores) 
+
+  displayScores(scores);
   prompt('The match is over!');
   displayOutcome(matchOutcome);
+
   return matchOutcome;
 }
 
@@ -344,11 +403,12 @@ function playTicTacToe() {
   if (chosenMode === GAME_MODES['match']) {
     runMatch();
   } else {
-    let userResponse = startNextGame();
+    let playGame = VALID_AFFIRMATIVES[0];
 
-    while (userResponse) {
-      runGame() 
-      userResponse = startNextGame();
+    while (VALID_AFFIRMATIVES.includes(playGame)) {
+      runGame();
+      prompt("Would you like to start a new game?");
+      playGame = getYesNo();
     }
   }
   prompt(`Thank you for playing! Goodbye!`);
