@@ -58,11 +58,11 @@ function duplicateDigits(number) {
 
   while (currentNumber > 0) {
     let currentDigit = currentNumber % BASE;
-    let digitString = String(currentDigit);
+    // let digitString = String(currentDigit); // this line is not needed since number keys are automatically coerced into strings
 
-    if (digitCounts[digitString] > 0) return true;
+    if (digitCounts[currentDigit] > 0) return true; // changed to currentDigit
 
-    digitCounts[digitString] += 1;
+    digitCounts[currentDigit] += 1; // changed to currentDigit
     currentNumber = (currentNumber - currentDigit) / BASE; 
   }
   return false;
