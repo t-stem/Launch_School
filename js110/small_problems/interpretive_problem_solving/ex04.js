@@ -7,7 +7,7 @@ The smallest such star you need to handle is a 7x7 grid (i.e., when N is 7).
 
 */
 
-function star(oddInt) {
+function star2(oddInt) {
   let halfStarRows = Math.floor(oddInt / 2);
   let halfStar = '';
 
@@ -26,6 +26,28 @@ function star(oddInt) {
 
   console.log(halfStar + middleRow + halfStar.split('').reverse().join(''));
 }
+
+function star(oddInt) {
+  let halfStarRows = Math.floor(oddInt / 2);
+  let rows = [];
+
+  for (let row = 0; row < halfStarRows; row += 1) {
+    let totalSpaces = oddInt - 3;
+    let outerSpaceReps = row;
+    let innerSpaceReps = totalSpaces / 2 - outerSpaceReps;
+
+    let outerSpaces = ' '.repeat(outerSpaceReps);
+    let innerSpaces = ' '.repeat(innerSpaceReps);
+
+    rows.push(`${outerSpaces}*${innerSpaces}*${innerSpaces}*${outerSpaces}`);
+  }
+
+  
+  rows.forEach(row => console.log(row));
+  console.log('*'.repeat(oddInt));
+  rows.reverse().forEach(row => console.log(row));
+}
+
 
 star(7);
 /* logs
