@@ -24,7 +24,7 @@ Write a function that takes an array as an argument and sorts that array using t
 You may assume that the array contains at least two elements.
 */
 
-function sortingPass(inputArray) {
+function sortingPass1(inputArray) {
   let swapCount = 0;
   
   for (let i = 1; i < inputArray.length; i += 1) {
@@ -35,6 +35,21 @@ function sortingPass(inputArray) {
       inputArray[i - 1] = inputArray[i];
       inputArray[i] = storedValue;
 
+      swapCount += 1;
+    }
+  }
+
+  return swapCount;
+}
+
+function sortingPass(inputArray) { // alternative syntax
+  let swapCount = 0;
+  
+  for (let i = 1; i < inputArray.length; i += 1) {
+    
+    if (inputArray[i - 1] > inputArray[i]) {
+
+      [inputArray[i - 1], inputArray[i]] = [inputArray[i], inputArray[i -1]];
       swapCount += 1;
     }
   }
