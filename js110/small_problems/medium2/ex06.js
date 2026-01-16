@@ -4,7 +4,7 @@ and the sum of the squares of the first count positive integers.
 */
 
 
-function sumSquareDifference (inputInteger) {
+function sumSquareDifference2(inputInteger) {
   let firstCountInts = [];
 
   for (let i = 1; i <= inputInteger; i += 1) {
@@ -17,6 +17,17 @@ function sumSquareDifference (inputInteger) {
   return squareOfSum - sumOfSquares;
 }
 
+function sumSquareDifference(inputInteger) { // alternative solution
+  let sum = 0;
+  let sumOfSquares = 0;
+
+  for (let i = 1; i <= inputInteger; i += 1) {
+    sum += i;
+    sumOfSquares += i ** 2;
+  }
+
+  return sum ** 2 - sumOfSquares;
+}
 
 
 console.log(sumSquareDifference(3));      // 22 --> (1 + 2 + 3)**2 - (1**2 + 2**2 + 3**2)
