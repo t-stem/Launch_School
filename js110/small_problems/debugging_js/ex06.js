@@ -32,7 +32,7 @@ function isValidNameWRONG(name) {
 
 
 function isValidName(name) {
-  return (/[a-z]+\s[a-z]+/i).test(name);
+  return (/^[a-z]+ [a-z]+$/i).test(name); // adding ^ and $ anchors ensures that test only returns true when the entire string matches the regex, not when the string contains a substring that matches the regex. Also, \s includes tabs and newlines, so we just want to use a normal space here ' '
 }
 
 function isValidPhone(phone) {
