@@ -9,6 +9,8 @@ Both the dishName and dish variables are assigned to strings.
 They both take the return values of three function calls and concatenate them using the + operator, which evaluates to a string
 The program then calls the .join() method on these variables, but the this method can only be called on arrays (not on strings)
 The way to fix this would be to assign the two variables to arrays that contain the return values of their three respective function calls.
+The function calls for dishName() return strings, while those for dish() return arrays with multiple elements.
+This means that they have to be spread so that the resulting array consists of strings rather than subarrays.
 */
 
 
@@ -57,7 +59,7 @@ let secondNoun = ['Mix', 'Delight', 'Bowl', 'Chunk', 'Surprise', 'Bliss'];
 // FALSE let dish = random(ingredients, 3) + random(spices, 2) + random(extras, 1);
 
 let dishName = [random(adjective), random(firstNoun), random(secondNoun)]; // CORRECT
-let dish = [random(ingredients, 3), random(spices, 2), random(extras, 1)]; // CORRECT
+let dish = [...random(ingredients, 3), ...random(spices, 2), ...random(extras, 1)]; // CORRECT
 
 console.log('How about: ' + dishName.join(' '));
 console.log('You need: ' + dish.join(', '));
