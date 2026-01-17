@@ -18,6 +18,12 @@ Upon first glance, Gemma's code below looks like it should work. But it throws a
 it seems like the .forEach method somehow does't recognize the array and is trying to access properties of 'undefined. The second line of the stack trace says Object.<anonymous>, 
 which seems like the Object.prototype where prototype is not provided. 
 
+CORRECTION:
+.forEach doesn't recognize the array, but the reason why was not identified in the answer.
+
+It's because the semi colon after the ladder declaration is missing. As a result, the array and forEach method are 
+considered to be part of the previous line and .forEach is called on let ladder = ''[].forEach() which is undefined
+
 
 let ladder = ''
 
