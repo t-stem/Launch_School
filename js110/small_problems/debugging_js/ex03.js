@@ -58,7 +58,7 @@ let secondNoun = ['Mix', 'Delight', 'Bowl', 'Chunk', 'Surprise', 'Bliss'];
 // FALSE let dishName = random(adjective) + random(firstNoun) + random(secondNoun);
 // FALSE let dish = random(ingredients, 3) + random(spices, 2) + random(extras, 1);
 
-let dishName = [random(adjective), random(firstNoun), random(secondNoun)]; // CORRECT
+let dishName = [...random(adjective), ...random(firstNoun), ...random(secondNoun)]; // CORRECT
 let dish = [...random(ingredients, 3), ...random(spices, 2), ...random(extras, 1)]; // CORRECT
 
 console.log('How about: ' + dishName.join(' '));
