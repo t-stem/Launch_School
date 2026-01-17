@@ -7,9 +7,11 @@ Why not? Fix the code so that it behaves as intended.
 */
 
 /* ANSWER:
-It's because the return true statement is included in the callback for .forEach() while the return false statement is included in the scope of reserved.
+It's because the return true statement is included in the callback for .forEach(), which is an inner scope within isReserved(). 
 This means that the return true statement in the callback returns the value true to .forEach().
-However, .forEach() itself doesn't return a value, so the value true is not passed to the caller of .forEach()
+However, .forEach() itself doesn't return a value, so the value true is not passed to the caller of .forEach().
+This means that the value true is nevered returned to isReserved(), and it's not accessible since it's also not 
+assigned to any variables that are accessible in the function scope of isReserved()
 As a result, the function isReserved() will always return false
 */
 
@@ -20,7 +22,7 @@ const RESERVED_KEYWORDS = ['break', 'case', 'catch', 'class', 'const', 'continue
   'super', 'switch', 'this', 'throw', 'try', 'typeof', 'var', 'void', 'while',
   'with', 'yield'];
 
-function isReserved(name) {
+function isReservedWRONG(name) {
   RESERVED_KEYWORDS.forEach(reserved => {
     if (name === reserved) {
       return true;
@@ -30,6 +32,15 @@ function isReserved(name) {
   return false;
 }
 
+
+function isReserved(name) {
+  for (let keyword of RESERVED_KEYWORDS) {
+    if (keyword === name) {
+      return true;
+    }
+  }
+  return false;
+}
 console.log(isReserved('monkey')); // false
 console.log(isReserved('patch'));  // false
 console.log(isReserved('switch')); // should be: true
