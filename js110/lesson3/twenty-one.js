@@ -278,17 +278,26 @@ function playerTurn (handOfPlayer, deckForTurn, handOfDealer) {
   console.log(LINE);
 }
 
+function askToProceed() {
+  console.log(LINE);
+  readlineSync.question(`Please hit 'enter' to proceed...`);
+  console.clear();
+}
+
 function dealerTurn(dealersHand, deckForTurn) {
   const contestant = CONTESTANTS['dealer'];
   showHand(dealersHand);
 
   while (dealersHand['value'] < DEALER_MIN) {
     prompt(`The dealer chose to hit...`, COLORS[contestant]);
+
     let drawnCard = drawFromDeck(dealersHand, deckForTurn);
+    
     prompt(`The dealer drew a${cardsNamesAn.includes(drawnCard['type']) ? 'n' : ''} ${drawnCard['type']}.`, COLORS[CONTESTANTS['dealer']]);
 
     if (contestantBusted(dealersHand)) return;
-    console.log(LINE);
+
+    askToProceed();
   }
 
   prompt(`The dealer chose to stay at ${dealersHand['value']}.`, COLORS[contestant]);
@@ -340,12 +349,6 @@ function displayOutcome(outcomeToDisplay, displPlayerHand, displDealerHand) {
     default:
       prompt('Outcome cannot be determined.');
   }
-}
-
-function askToProceed() {
-  console.log(LINE);
-  readlineSync.question(`Please hit 'enter' to proceed...`);
-  console.clear();
 }
 
 function playRound() {
@@ -452,7 +455,7 @@ function updateScores(roundResult, scores) {
 }
 
 function isClearOutcome(outcomeToCheck) {
-  if (ROUND_RETURNS.includes(outcomeToCheck)) return true;
+  if (Object.values(ROUND_RETURNS).includes(outcomeToCheck)) return true;
 
   prompt("Error: Outcome is unclear.", COLORS['invalidInput']);
   return false;
@@ -497,6 +500,11 @@ function playBestOfFive() {
   displayBestOfFive(bestOfFive);
 }
 
+function closeGame() {
+  console.log(LINE);
+  prompt(`Thank you for playing ${GOAL_SUM}, goodbye!`, COLORS['bold']);
+  console.log(LINE);
+}
 
 function playGame() {
   console.clear();
@@ -518,7 +526,7 @@ function playGame() {
     prompt('Game mode not recognized.', COLORS['invalidInput']);
   }
 
-  prompt(`Thank you for playing ${GOAL_SUM}, goodbye!`, COLORS['bold']);
+  closeGame();
 }
 
 playGame();
