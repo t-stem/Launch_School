@@ -37,8 +37,8 @@ function conjugate (inputVerb) {
   return inputVerb + 's';
 }
 
-function wordAnOrA (noun) {
-  if (!consonants.includes(noun[0])) return 'n';
+function wordAnOrA (word) {
+  if (!consonants.includes(word[0])) return 'n';
 
   return '';
 }
@@ -58,7 +58,7 @@ function template3(verb, adverb, noun, adjective) {
 
 const templates = [template1, template2, template3];
 
-function madlibs(templatesArray) {
+function madlibs2(templatesArray) {
   templatesArray.forEach(templateFunction => {
     let randomVerb = VERBS[randomIndex(VERBS)];
     let randomAdverb = ADVERBS[randomIndex(ADVERBS)];
@@ -69,4 +69,26 @@ function madlibs(templatesArray) {
   });
 }
 
-madlibs(templates);
+let temp1 = 'I ADVERB VERB XAN ADJECTIVE NOUN.';
+let temp2 = 'The ADJECTIVE cat ADVERB CONJVERB the NOUN.';
+let temp3 = 'We try to ADVERB VERB the ADJECTIVE NOUN.';
+
+let templateStrings = [temp1, temp2, temp3];
+
+function madlibs (templateString) {
+  let newString = templateString.replace('ADVERB', ADVERBS[randomIndex(ADVERBS)]);
+  newString = newString.replace('CONJVERB', conjugate(VERBS[randomIndex(VERBS)]));
+  newString = newString.replace('VERB', VERBS[randomIndex(VERBS)]);
+  newString = newString.replace('NOUN', NOUNS[randomIndex(NOUNS)]);
+  newString = newString.replace('ADJECTIVE', ADJECTIVES[randomIndex(ADJECTIVES)]);
+  if (newString.includes('XAN')) {
+    let wordsArray = newString.split(" ");
+    let indexXAN = wordsArray.indexOf('XAN');
+    let nextWord = wordsArray[indexXAN + 1];
+    newString = newString.replace('XAN', 'a' + wordAnOrA(nextWord));
+  }
+
+  console.log(newString);
+}
+
+templateStrings.forEach(string => madlibs(string));
