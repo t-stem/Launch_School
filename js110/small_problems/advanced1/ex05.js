@@ -6,7 +6,7 @@ You may not provide any solution that requires you to sort the result array. You
 Your solution should not mutate the input arrays.
 */
 
-function merge(array1, array2) {
+function merge2(array1, array2) {
   let outputArray = [];
   let length1 = array1.length;
   let length2 = array2.length;
@@ -41,6 +41,40 @@ function merge(array1, array2) {
   return outputArray;
 }
 
+function merge(array1, array2) { // easier logic, not captured in PEDAC
+  let length1 = array1.length;
+  let length2 = array2.length;
+  let outputArray = [];
+  let currIndex1 = 0;
+  let currIndex2 = 0;
+
+  while (currIndex1 < length1 && currIndex2 < length2) {
+    let curr1 = array1[currIndex1];
+    let curr2 = array2[currIndex2];
+
+    if (curr1 < curr2) {
+      outputArray.push(curr1);
+      currIndex1 += 1;
+    } else {
+      outputArray.push(curr2);
+      currIndex2 += 1;
+    }
+  }
+
+  while (currIndex1 < length1) {
+    let curr1 = array1[currIndex1];
+    outputArray.push(curr1);
+    currIndex1 += 1;
+  }
+
+  while (currIndex2 < length2) {
+    let curr2 = array2[currIndex2];
+    outputArray.push(curr2);
+    currIndex2 += 1;
+  }
+
+  return outputArray;
+}
 
 console.log(merge([1, 5, 9], [2, 6, 8]));      // [1, 2, 5, 6, 8, 9]
 console.log(merge([1, 1, 3], [2, 2]));         // [1, 1, 2, 2, 3]
