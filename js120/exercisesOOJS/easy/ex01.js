@@ -9,15 +9,15 @@ Formula for rectangle area is: width * length.
 */
 
 class Rectangle {
-  constructor(w, l) {
-    this.width = w;
-    this.length = l;
-    this.area = this.width * this.length;
+  constructor(width, length) {
+    this.width = width;
+    this.length = length;
+    // this.area = this.width * this.length; FIX: this line should be removed. Area won't be recalculated automatically when length or width is updated 
   }
 
   getWidth() {return this.width;}
   getLength() {return this.length;}
-  getArea() {return this.area;}
+  getArea() {return this.length * this.width} // area should be calculated rather than stored as a property. Otherwise it won't be updated when length or width is updated
 }
 
 
