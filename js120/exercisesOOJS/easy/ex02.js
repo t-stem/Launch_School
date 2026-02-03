@@ -24,12 +24,7 @@ class Rectangle {
 
 class Square extends Rectangle {
   constructor(side) {
-    super();
-    this.side = side;
-  }
-
-  getArea() {
-    return this.side ** 2;
+    super(side, side);
   }
 }
 
