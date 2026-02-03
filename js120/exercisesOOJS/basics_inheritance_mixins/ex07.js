@@ -16,4 +16,4 @@ Object.assign(Truck.prototype, towMixin);
 class Car {}
 
 let truck = new Truck();
-console.log(truck.tow());
+truck.tow();
