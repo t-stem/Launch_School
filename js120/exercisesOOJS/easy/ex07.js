@@ -11,12 +11,9 @@ class Person {
 }
 
 class Shouter extends Person {
-  constructor() {
-    super();
-  }
 
   greeting(text) {
-    console.log(super.greeting(text).toUpperCase());
+    super.greeting(text.toUpperCase()); // INCORRECT: console.log(super.greeting(text).toUpperCase());
   }
 }
 
