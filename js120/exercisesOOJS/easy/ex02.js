@@ -1,20 +1,38 @@
 /*
-Without calling the Cat constructor, create an object that looks and acts like a Cat instance that doesn't have a defined name.
+Write a class called Square that inherits from Rectangle, and is used like this:
 */
 
 
-
-class Cat {
-  constructor(name) {
-    this.name = name;
+class Rectangle {
+  constructor(width, length) {
+    this.width = width;
+    this.length = length;
   }
-  speaks() {
-    return `${this.name} says meowwww.`;
+
+  getWidth() {
+    return this.width;
+  }
+
+  getLength() {
+    return this.length;
+  }
+
+  getArea() {
+    return this.width * this.length;
   }
 }
 
-let fakeCat = Object.create(Cat.prototype); 
+class Square extends Rectangle {
+  constructor(side) {
+    super();
+    this.side = side;
+  }
 
-console.log(fakeCat instanceof Cat); // logs true
-console.log(fakeCat.name);           // logs undefined
-console.log(fakeCat.speaks());       // logs undefined says meowwww.
+  getArea() {
+    return this.side ** 2;
+  }
+}
+
+
+let square = new Square(5);
+console.log(`area of square = ${square.getArea()}`); // area of square = 25
