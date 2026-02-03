@@ -2,6 +2,48 @@
 You have the following classes.
 */
 
+
+const walkMixin = {
+  walk() {
+    return `${this.name} ${this.gait()} forward`;
+  }
+}
+
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+
+  gait() {
+    return "strolls";
+  }
+}
+
+class Cat {
+  constructor(name) {
+    this.name = name;
+  }
+
+  gait() {
+    return "saunters";
+  }
+}
+
+class Cheetah {
+  constructor(name) {
+    this.name = name;
+  }
+
+  gait() {
+    return "runs";
+  }
+}
+
+Object.assign(Person.prototype, walkMixin);
+Object.assign(Cat.prototype, walkMixin);
+Object.assign(Cheetah.prototype, walkMixin);
+
+/*
 class Creature {
   constructor(name) {
     this.name = name;
@@ -32,6 +74,8 @@ class Cheetah extends Creature {
     return "runs";
   }
 }
+
+*/
 
 /*
 You need to modify the code so that this works:
