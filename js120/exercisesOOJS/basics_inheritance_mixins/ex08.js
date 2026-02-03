@@ -15,11 +15,10 @@ class Vehicle {
   }
 }
 
-Object.assign(Vehicle.prototype, towMixin);
-
 class Truck extends Vehicle {
   constructor(year) {
     super(year);
+    Object.assign(this, towMixin);
   }
 }
 
