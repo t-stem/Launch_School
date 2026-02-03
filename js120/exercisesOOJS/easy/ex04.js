@@ -19,7 +19,7 @@ class Cat extends Pet {
   }
 
   info() {
-    console.log(`My cat ${this.name} is ${this.age} years old and has ${this.fur} fur.`);
+    return `My cat ${this.name} is ${this.age} years old and has ${this.fur} fur.`;
   }
 }
 
