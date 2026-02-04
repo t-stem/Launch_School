@@ -9,6 +9,8 @@ returns true or false depending on whether the objects have the same key/value p
 */
 
 function objectsEqual2(obj1, obj2) {
+  if (Object.keys(obj1).length !== Object.keys(obj2).length) return false; // FIX: IMPORTANT EDGE CASE -> without this line, obj2 might have more keys than obj1. The excess keys wouldn't be checked since the loops only iterate over obj1 keys
+
   for (let key1 in obj1) {
     if (!Object.keys(obj2).includes(key1)) return false;
     if (obj1[key1] !== obj2[key1]) return false;
@@ -18,6 +20,8 @@ function objectsEqual2(obj1, obj2) {
 }
 
 function objectsEqual(obj1, obj2) {
+  if (Object.keys(obj1).length !== Object.keys(obj2).length) return false;
+
   for (let key in obj1) {
     if (!obj2.hasOwnProperty(key)) return false;
     if (obj1[key] !== obj2[key]) return false;
