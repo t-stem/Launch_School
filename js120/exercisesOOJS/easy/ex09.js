@@ -3,18 +3,26 @@ Consider the following code:
 */
 
 class Pet {
-  constructor(species, name, shelter) {
+  constructor(species, name) { // IMPROVEMENT: removed excess shetler 'shelter' parameter
     this.name = name;
     this.species = species;
+    
+  }
+
+  info() {
+    return `a ${this.species} called ${this.name}`;
   }
 }
 
 class Owner {
   constructor(name) {
     this.name = name;
+    this.pets = []; // IMPROVEMENT: initialize instance state inside the constructor rather than outside
   }
 
-  pets = [];
+  addPet(pet) {
+    this.pets.push(pet); //IMPROVEMENT: let the class manage its own pets
+  }
 
   numberOfPets() {
     return this.pets.length;
@@ -29,13 +37,13 @@ class Shelter {
       this.adoptions[owner.name] = [];
     }
     this.adoptions[owner.name].push(animal);
-    owner.pets.push(animal);
+    owner.addPet(animal); // IMPROVEMENT: let owner manage own pets through own method (Shelter just asks Owner to add one) rather than owner.pets.push(animal);
   }
 
   printAdoptions() {
     for (let ownerName in this.adoptions) {
       console.log(`${ownerName} has adopted the following pets:`);
-      this.adoptions[ownerName].forEach(pet => console.log(`a ${pet.species} named ${pet.name}`));
+      this.adoptions[ownerName].forEach(pet => console.log(pet.info())); // IMPROVEMENT: added pet.info() method so that Shelter doesn't need to know about Pet details
       console.log('\n');
     }
   }
