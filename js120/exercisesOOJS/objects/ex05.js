@@ -14,6 +14,8 @@ getReportCard: Logs the grades of a student for all courses. If the course has n
 courseReport: Logs the grades of all students for a given course name. Only student with grades are part of the course report.
 
 To test your code, use the three student objects listed below. Using the three student objects, produce the following values from the getReportCard and courseReport methods respectively.
+
+incorporate feedback
 */
 
 function createSchool() {
@@ -69,7 +71,7 @@ function createSchool() {
 
       console.log(`=${courseName} Grades=`)
       grades.forEach(([nameStudent, gradeStudent]) => console.log(`${nameStudent}: ${gradeStudent}`));
-      console.log(`---\nCourse Average: ${average}\n`);
+      console.log(`--gi-\nCourse Average: ${average}\n`);
     }
   }
 }
