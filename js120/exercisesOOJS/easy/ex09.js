@@ -27,23 +27,27 @@ class Owner {
   numberOfPets() {
     return this.pets.length;
   }
+
+  printPets() {
+    this.pets.forEach(pet => console.log(`${pet.info()}`)); // IMPROVEMENT: added pet.info() method so that Shelter doesn't need to know about Pet details
+  }
 }
 
 class Shelter {
-  adoptions = {};
+  adoptions = {}; // IMPROVEMENT: {ownerName: ownerObj}
 
   adopt(owner, animal) {
     if (!Object.keys(this.adoptions).includes(owner.name)) {
       this.adoptions[owner.name] = [];
     }
-    this.adoptions[owner.name].push(animal);
+    this.adoptions[owner.name] = owner; // IMPROVEMENT: store pet ownership on owner exclusively, rather than on Owner and Shelter (avoids duplication)
     owner.addPet(animal); // IMPROVEMENT: let owner manage own pets through own method (Shelter just asks Owner to add one) rather than owner.pets.push(animal);
   }
 
   printAdoptions() {
     for (let ownerName in this.adoptions) {
       console.log(`${ownerName} has adopted the following pets:`);
-      this.adoptions[ownerName].forEach(pet => console.log(pet.info())); // IMPROVEMENT: added pet.info() method so that Shelter doesn't need to know about Pet details
+      this.adoptions[ownerName].printPets(); // IMPROVEMENT: use printPets() method on the Owner to print
       console.log('\n');
     }
   }
