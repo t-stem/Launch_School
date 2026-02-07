@@ -9,20 +9,17 @@ Doomsday Book	Connie Willis	1992
 When you are done, identify the type of the objects created, the constructor function, and the instance objects.
 */
 
-let book = {
-  title: 'title',
-  author: 'author',
-  year: 'year',
+function Book(title, author, year) {
+  this.title = title;
+  this.author = author;
+  this.year = year;
 }
 
-let book1 = Object.assign({}, book);
-book1.title = 'Neuromancer';
-book1.author = 'William Gibson';
-book1.year = 1994;
+let book1 = new Book('Neuromancer',	'William Gibson',	1984);
+let book2 = new Book('Doomsday Book',	'Connie Willis',	1992);
 
-let book2 = Object.assign({}, book);
-book2.title = 'Doomsday Book';
-book2.author = 'Connie Willis';
-book2.year = 1992;
+console.log(book1)
+console.log(book2)
+
 
 
