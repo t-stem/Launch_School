@@ -7,6 +7,11 @@ Title	Author	Year Published
 Neuromancer	William Gibson	1984
 Doomsday Book	Connie Willis	1992
 When you are done, identify the type of the objects created, the constructor function, and the instance objects.
+
+ANSWERS:
+- type of the objects: Book
+- constructor function: Book()
+- Instance objects: book1 and book2
 */
 
 function Book(title, author, year) {
