@@ -13,7 +13,20 @@ function Smartphone(brand, model, releaseYear) {
   this.brand = brand;
   this.model = model;
   this.releaseYear = releaseYear;
+
+  this.checkBattery = function() {
+    console.log('Checking battery level');
+  }
+
+  this.displayInfo = function() {
+    console.log(`Brand: ${this.brand}; Model: ${this.model}; Release year: ${this.releaseYear}`);
+  }
 }
 
 let iPhone12 = new Smartphone('Apple', 'iPhone 12',	2020);
 let GalaxyS21 = new Smartphone('Samsung',	'Galaxy S21',	2021);
+
+iPhone12.checkBattery();
+GalaxyS21.displayInfo();
+console.log(iPhone12);
+console.log(GalaxyS21);
