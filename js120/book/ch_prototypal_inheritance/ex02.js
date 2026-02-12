@@ -32,7 +32,7 @@ Plane.prototype = Object.create(Vehicle.prototype)
 
 Plane.prototype.takeOff = function() {
     console.log('Taking off...');
-  },
+  }
 
 Plane.prototype.land = function() {
     console.log('Landing...');
