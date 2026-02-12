@@ -14,7 +14,7 @@ class Book {
   constructor(title, author, year) {
     this.#title = title;
     this.#author = author;
-    this.#year = year;
+    this.year = year; // FIX: instead of directly using #year, use year to call the setter and validate the input. Otherwise, validation is bypassed
   }
 
   set year(inputYear) {
