@@ -18,9 +18,9 @@ class Person {
 
   set age(age) {
     if (age <= 0) {
-      throw new Error('RangeError');
+      throw new RangeError('Out of range');
     }
-    return this.#age = age;
+    this.#age = age;
   }
 
   showAge() {
