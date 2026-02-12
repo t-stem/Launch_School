@@ -15,14 +15,12 @@ function Vehicle(color, weight) {
   this.weight = weight;
 }
 
-Vehicle.prototype = {
-  accelerate() {
-    console.log('Accelerating...');
-  },
+Vehicle.prototype.accelerate = function() {
+  console.log('Accelerating...');
+},
 
-  decelerate() {
-    console.log('Decelerating...');
-  }
+Vehicle.prototype.decelerate = function() {
+  console.log('Decelerating...');
 }
 
 function Plane(color, weight, airline) {
