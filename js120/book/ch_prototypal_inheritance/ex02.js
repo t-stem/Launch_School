@@ -18,6 +18,9 @@ function Vehicle(color, weight) {
 Vehicle.prototype = {
   accelerate() {
     console.log('Accelerating...');
+  },
+
+  decelerate() {
     console.log('Decelerating...');
   }
 }
@@ -27,36 +30,42 @@ function Plane(color, weight, airline) {
   this.airline = airline;
 }
 
-Plane.prototype = {
-  takeOff() {
+Plane.prototype = Object.create(Vehicle.prototype)
+
+Plane.prototype.takeOff = function() {
     console.log('Taking off...');
   },
 
-  land() {
+Plane.prototype.land = function() {
     console.log('Landing...');
   }
-}
+
+Plane.prototype.constructor = Plane;
 
 function Car(color, weight) {
   Vehicle.call(this, color, weight);
 }
 
-Car.prototype = {
-  honk() {
+Car.prototype = Object.create(Vehicle.prototype)
+
+Car.prototype.honk = function() {
     console.log('Honking...');
-  }
 }
+
+Car.prototype.constructor = Car;
 
 function Boat(color, weight, homePort) {
   Vehicle.call(this, color, weight);
   this.homePort = homePort;
 }
 
-Boat.prototype = {
-  dropAnchor() {
+Boat.prototype = Object.create(Vehicle.prototype)
+
+Boat.prototype.dropAnchor = function() {
     console.log('Dropping anchor...');
-  }
 }
+
+Boat.prototype.constructor = Boat;
 
 let plane = new Plane('Blue', 1000, 'KLM');
 let car = new Car('Black', 100);
@@ -64,8 +73,9 @@ let boat = new Boat('Navy', 10000, 'Singapore');
 
 plane.takeOff()
 console.log(plane.color);
+plane.accelerate()
 car.honk();
 console.log(car.weight);
 boat.dropAnchor();
 console.log(boat.color);
-
+boat.decelerate();
