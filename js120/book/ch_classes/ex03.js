@@ -57,3 +57,12 @@ class Boat extends Vehicle {
     console.log('Dropping anchor...')
   }
 }
+
+let plane = new Plane('blue', 1000, 'KLM');
+let car = new Car('black', 100, 'ABC123');
+let boat = new Boat('navy', 10000, 'New York');
+
+console.log(car instanceof Vehicle);
+console.log(boat instanceof Vehicle);
+console.log(car instanceof Car);
+console.log(boat instanceof Car);
