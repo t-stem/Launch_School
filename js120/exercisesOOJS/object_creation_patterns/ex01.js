@@ -15,25 +15,21 @@ const qux = Object.create(baz);
 qux.name = 'qux';
 
 Object.getPrototypeOf(foo).ancestors = function() {
-  let proto;
-  let nextObj = this;
-  let protosArray = [];
+  let ancestor = this;
+  let output = []
 
-  do {
-    proto = Object.getPrototypeOf(nextObj);
-    
-    if (proto === null) {
-      protosArray.push('Object.prototype');
+  while (ancestor !== null) {
+    ancestor = Object.getPrototypeOf(ancestor);
+    console.log(ancestor)
+
+    if (ancestor.name) {
+      output.push(ancestor.name);
     } else {
-      protosArray.push(proto.name);
+      output.push('Object.prototype')
     }
-
-    
-    nextObj = proto;
   }
-  while (proto !== null);
-
-  return protosArray;
+  
+  return output;
 }
 
 console.log(qux.ancestors());  // returns ['baz', 'bar', 'foo', 'Object.prototype']
