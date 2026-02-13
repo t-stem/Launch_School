@@ -17,14 +17,17 @@ qux.name = 'qux';
 Object.getPrototypeOf(foo).ancestors = function() {
   let proto;
   let nextObj = this;
-  let protosArray = []
+  let protosArray = [];
 
   do {
     proto = Object.getPrototypeOf(nextObj);
     
-    if (proto !== null) {
+    if (proto === null) {
+      protosArray.push('Object.prototype');
+    } else {
       protosArray.push(proto.name);
     }
+
     
     nextObj = proto;
   }
