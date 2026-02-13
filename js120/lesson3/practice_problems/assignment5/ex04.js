@@ -11,11 +11,11 @@ The function should return an object that has the amount paid for each service a
 Your function should work with the following code:
 */
 
-function createPayment(services) {
+function createPayment(services) { // alternative: services = {}, which will avoid having to use && operator in following lines
   return {
-    phone: services && services.phone ? services.phone : 0,
-    internet: services && services.internet ? services.internet : 0,
-    amount: services && services.amount ? services.amount : 0,
+    phone: (services && services.phone) || 0, // abbreviated syntax vs services && services.phone ? services.phone : 0;
+    internet: (services && services.internet) || 0, // abbreviated syntax
+    amount: services && services.amount,
 
     total() {
       return this.amount ? this.amount : this.phone + this.internet;
