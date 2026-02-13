@@ -14,7 +14,7 @@ let franchise = {
 
   allMovies: function() {
     let concatNumToName = this.concatToName.bind(this);
-    return [1, 2, 3].map(number => concatNumToName(number));
+    return [1, 2, 3].map(concatNumToName);
   },
 };
 
