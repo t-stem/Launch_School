@@ -2,75 +2,77 @@
 Implement the following diagram using the pseudo-classical approach. Subclasses should inherit all of the superclass's methods. Reuse the constructors of the superclass when implementing a subclass.
 */
 
-class Person {
-  constructor(firstName, lastName, age, gender) {
+function Person(firstName, lastName, age, gender) {
     this.firstName = firstName,
     this.lastName = lastName,
     this.age = age,
     this.gender = gender
-  }
+}
 
-  fullName() {
+
+Person.prototype.fullName = function() {
     return `${this.firstName} ${this.lastName}`;
   }
 
-  communicate() {
+Person.prototype.communicate = function() {
     console.log(`Communicating`);
   }
 
-  eat() {
+Person.prototype.eat = function() {
     console.log('Eating');
-  }
-
-  sleep() {
-    console.log(`Sleeping`);
-  }
 }
 
-class Doctor extends Person {
-  constructor(firstName, lastName, age, gender, specialization) {
-    super(firstName, lastName, age, gender);
-    this.specialization = specialization;
-  }
-
-  diagnose() {
-    console.log('Diagnosing');
-  }
+Person.prototype.sleep = function() {
+  console.log(`Sleeping`);
 }
 
-class Professor extends Person {
-  constructor(firstName, lastName, age, gender, subject) {
-    super(firstName, lastName, age, gender);
-    this.subject = subject;
-  }
-
-  teach() {
-    console.log('Teaching');
-  }
+function Doctor(firstName, lastName, age, gender, specialization) {
+  Person.call(this, firstName, lastName, age, gender);
+  this.specialization = specialization;
 }
 
-class Student extends Person {
-  constructor(firstName, lastName, age, gender, degree) {
-    super(firstName, lastName, age, gender);
-    this.degree = degree;
-  }
-
-  study() {
-    console.log('Studying');
-  }
+Doctor.prototype = Object.create(Person.prototype);
+Doctor.prototype.diagnose = function() {
+  console.log('Diagnosing');
 }
 
-class GraduateStudent extends Student {
-  constructor(firstName, lastName, age, gender, graduateDegree) {
-    super(firstName, lastName, age, gender);
-    this.graduateDegree = graduateDegree;
-  }
+Doctor.prototype.constructor = Doctor;
 
-  research() {
-    console.log('Researching');
-  }
+function Professor(firstName, lastName, age, gender, subject) {
+  Person.call(this, firstName, lastName, age, gender);
+  this.subject = subject;
 }
 
+Professor.prototype = Object.create(Person.prototype);
+Professor.prototype.teach = function() {
+  console.log('Teaching');
+}
+
+Professor.prototype.constructor = Professor;
+
+function Student(firstName, lastName, age, gender, degree) {
+  Person.call(this, firstName, lastName, age, gender);
+  this.degree = degree;
+}
+
+Student.prototype = Object.create(Person.prototype);
+Student.prototype.study = function() {
+  console.log('Studying');
+}
+
+Student.prototype.constructor = Student;
+
+function GraduateStudent(firstName, lastName, age, gender, degree, graduateDegree) {
+  Student.call(this, firstName, lastName, age, gender, degree);
+  this.graduateDegree = graduateDegree;
+}
+
+GraduateStudent.prototype = Object.create(Student.prototype);
+GraduateStudent.prototype.research = function() {
+  console.log('Researching');
+}
+
+GraduateStudent.prototype.constructor = GraduateStudent;
 
 const person = new Person('Foo', 'Bar', 21, 'male');
 console.log(person instanceof Person);       // logs true
