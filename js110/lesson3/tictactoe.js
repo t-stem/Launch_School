@@ -84,6 +84,11 @@ function getYesNo() {
   }
 }
 
+function askToProceed() {
+    readlineSync.question(`Please hit 'enter' to proceed.`);
+    console.clear();
+}
+
 function initializeGame() {
   let initializedSquares = {};
 
@@ -99,6 +104,7 @@ function displayBoard(currentSquaresState) {
   let row6 = [empty2, currentSquaresState['4'], empty2, vert, empty2, currentSquaresState['5'], empty2, vert, empty2, currentSquaresState['6'], empty2].join('');
   let row10 = [empty2, currentSquaresState['7'], empty2, vert, empty2, currentSquaresState['8'], empty2, vert, empty2, currentSquaresState['9'], empty2].join('');
 
+  console.clear();
   console.log(`\n${emptyRow}\n${row2}\n${emptyRow}\n${dividerRow}\n${emptyRow}\n${row6}\n${emptyRow}\n${dividerRow}\n${emptyRow}\n${row10}\n${emptyRow}\n`);
 }
 
@@ -218,11 +224,14 @@ function markSquare(choiceFunction, currentSquaresState) {
   let squareChoice = choiceFunction(currentSquaresState);
 
   if (choiceFunction === playerChooses) {
-    prompt(`You have chosen: ${squareChoice}.`);
     currentSquaresState[squareChoice] = SQUARE_MARKERS['player'];
+    displayBoard(currentSquaresState);
   } else if (choiceFunction === computerChooses) {
-    prompt(`Your opponent has chosen: ${squareChoice}.`);
     currentSquaresState[squareChoice] = SQUARE_MARKERS['computer'];
+    displayBoard(currentSquaresState);
+    prompt(`It's your opponent's turn.`)
+    prompt(`Your opponent has chosen: ${squareChoice}.`);
+    
   }
 }
 
@@ -241,6 +250,7 @@ function executeTurn(currentSquaresState, computerPriority) {
 
   if (computerFirst) {
     markSquare(computerChooses, currentSquaresState);
+    askToProceed();
   } else {
     displayBoard(currentSquaresState);
     markSquare(playerChooses, currentSquaresState);
@@ -310,6 +320,7 @@ function hasComputerPriority() {
 function runGame() {
   const gameState = initializeGame();
   let outcome;
+  console.clear();
   prompt(`Welcome to this game! You will be playing as ${SQUARE_MARKERS['player']} and your opponent will be playing as ${SQUARE_MARKERS['computer']}.`);
 
   let computerPriority = hasComputerPriority();
@@ -336,7 +347,9 @@ function matchOrSingle() {
   let selectedMode;
 
   do {
-    selectedMode = readlineSync.question(`Please enter ${joinOr(Object.values(GAME_MODES).map(mode => quote(mode)))} here: `);
+    selectedMode = readlineSync
+      .question(`Please enter ${joinOr(Object.values(GAME_MODES).map(mode => quote(mode)))} here: `)
+      .toLowerCase();
     if (!isValidMode(selectedMode)) {
       prompt(`Your input is not valid. Valid inputs include ${joinOr(Object.values(GAME_MODES).map(mode => quote(mode)), ',', 'and')}.`);
     }
@@ -382,6 +395,7 @@ function runMatch() {
   while (!matchOutcome) {
     displayScores(scores);
     prompt(`Starting a new game...`);
+    askToProceed()
 
     let gameOutcome = runGame();
     updateScores(gameOutcome, scores);
@@ -389,19 +403,22 @@ function runMatch() {
     matchOutcome = determineMatch(scores);
   }
 
-  displayScores(scores);
+  askToProceed();
   prompt('The match is over!');
+  displayScores(scores);
   displayOutcome(matchOutcome);
-
   return matchOutcome;
 }
 
 function playTicTacToe() {
+  console.clear();
   prompt("Welcome to TicTacToe!");
   let chosenMode = matchOrSingle();
+  console.clear();
 
   if (chosenMode === GAME_MODES['match']) {
     runMatch();
+    askToProceed();
   } else {
     let playGame = VALID_AFFIRMATIVES[0];
 
@@ -411,6 +428,8 @@ function playTicTacToe() {
       playGame = getYesNo();
     }
   }
+
+  console.clear();
   prompt(`Thank you for playing! Goodbye!`);
 }
 
