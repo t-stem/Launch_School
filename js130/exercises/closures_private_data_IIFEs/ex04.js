@@ -8,19 +8,16 @@ The delegate function should return the same value returned by calling the other
 function delegate(obj, methodName) {
   return function(...args) {
     let method = obj[methodName];
-    return method(...args);
+    return method.apply(obj, args);
   }
 }
 
 let interactions = {greet: function(person) {
-  return `Hello, ${person}!`;
-}}
-
-let delegatedGreet = delegate(interactions, 'greet');
+  return `Hello, ${person}! I'm ${this.person}.`;
+}, person: 'Dave'}
 
 let expressions = {};
 expressions['hello'] = delegate(interactions, 'greet');
 
 console.log(interactions.greet('John'));
-console.log(delegatedGreet('John'));
 console.log(expressions.hello('John'));
