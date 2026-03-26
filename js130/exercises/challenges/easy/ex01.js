@@ -17,7 +17,7 @@ class Triangle {
     this.sides = [side1, side2, side3];
 
     if (!this.isTriangle()) {
-      throw new Error();
+      throw new Error('Invalid triangle'); // ADDED: error message
     }
   }
 
@@ -42,6 +42,8 @@ class Triangle {
   }
 
   isIsosceles() {
+    if (this.isEquilateral()) return false; // ADDED: below logic also returns true for equilateral triangles
+
     let [side1, side2, side3] = this.sides;
 
     return side1 === side2 || side1 === side3 || side2 === side3;
